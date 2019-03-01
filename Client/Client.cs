@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -13,6 +14,9 @@ namespace Client
     static class Client
     {
         private static Socket client;
+        private static NetworkStream stream;
+        private static BinaryReader reader;
+        private static BinaryWriter writer;
         private static bool connected = false;
         private static int port = 228;
 
@@ -22,6 +26,9 @@ namespace Client
             {
                 client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 client.Connect(new IPEndPoint(IPAddress.Parse(ip), port));
+                stream = new NetworkStream(client);
+                reader = new BinaryReader(stream);
+                writer = new BinaryWriter(stream);
                 connected = true;
             }
             catch (Exception ex)
@@ -42,7 +49,7 @@ namespace Client
 
         public static void SendMessage(string message)
         {
-            byte[] buffer = Encoding.Unicode.GetBytes(message);
+            /*byte[] buffer = Encoding.Unicode.GetBytes(message);
 
             try
             {
@@ -53,12 +60,15 @@ namespace Client
                 MessageBox.Show(ex.Message);
                 connected = false;
                 client.Close();
-            }
+            }*/
+
+            writer.Write(message);
+
         }
 
         public static string ReceiveMessage()
         {
-            StringBuilder SB = new StringBuilder();
+            /*StringBuilder SB = new StringBuilder();
             int bytes = 0;
             byte[] buffer = new byte[256];
 
@@ -77,7 +87,9 @@ namespace Client
                 client.Close();
             }
 
-            return SB.ToString();
+            return SB.ToString();*/
+            string message = reader.ReadString();
+            return message;
         }
 
 

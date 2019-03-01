@@ -18,11 +18,6 @@ namespace Client
             InitializeComponent();
         }
 
-        private void MainTextBoxChanged(object sender, EventArgs e)
-        {
-            Client.SendMessage(textBox1.Text);
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             Client.Connect(textBox2.Text);
@@ -40,6 +35,11 @@ namespace Client
                     textBox1.Text = message;
                 });
             }
+        }
+
+        private void KeyUpTextBox1(object sender, KeyEventArgs e)
+        {
+            Client.SendMessage(textBox1.Text);
         }
     }
 }

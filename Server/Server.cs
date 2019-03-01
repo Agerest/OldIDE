@@ -40,7 +40,7 @@ namespace Server
                 try
                 {
                     userSocket = server.Accept();
-                    User user = new User(userSocket);
+                    User user = new User(userSocket, users.Count);
                     users.Add(user);
                 }
                 catch (Exception ex)
@@ -49,7 +49,7 @@ namespace Server
                 }
                 finally
                 {
-                    Console.Write("New user connected");
+                    Console.WriteLine("New user connected");
                 }
             }
         }
@@ -67,7 +67,7 @@ namespace Server
                 {
                     if (!u.Equals(user))
                     {
-                        SendMessage(message, user);
+                        SendMessage(message, u);
                     }
                 }
             } 
