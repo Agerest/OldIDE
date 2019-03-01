@@ -42,7 +42,7 @@
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox1.Size = new System.Drawing.Size(786, 393);
             this.textBox1.TabIndex = 0;
-            this.textBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.KeyUpTextBox1);
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressTextBox1);
             // 
             // textBox2
             // 

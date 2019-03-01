@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
 using System.IO;
-using System.Linq;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Server
 {
@@ -34,28 +31,12 @@ namespace Server
             while (true)
             {
                 string message = ReceiveMessage();
-                Console.WriteLine(message);
-                Server.SendMessageAllUser(message, this);
+                JsonParse(message);
             }
         }
 
         public void SendMessage(string message)
         {
-            /*byte[] buffer = Encoding.Unicode.GetBytes(message);
-
-            try
-            {
-                user.Send(buffer);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                user.Close();
-            }
-            finally
-            {
-                Console.WriteLine("Отправка сообщения успешна");
-            }*/
             try
             {
                 writer.Write(message);
@@ -72,25 +53,6 @@ namespace Server
 
         private string ReceiveMessage()
         {
-            /*StringBuilder SB = new StringBuilder();
-            int bytes = 0;
-            byte[] buffer = new byte[256];
-
-            try
-            {
-                do
-                {
-                    bytes = user.Receive(buffer);
-                    SB.Append(Encoding.Unicode.GetString(buffer, 0, bytes));
-                }
-                while (user.Available > 0);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            return SB.ToString();*/
             string message = "";
             try
             {
@@ -108,9 +70,26 @@ namespace Server
             return message;
         }
 
+        private void JsonParse(string jsonSerialize)
+        {
+            JSON json = JsonConvert.DeserializeObject<JSON>(jsonSerialize);
+            switch (json.Type)
+            {
+                case JSONType.text:
+                    Server.SendMessageAllUser(jsonSerialize, this);
+                    break;
+                case JSONType.compile:
+                    string message = Server.Compile(json.Data);
+                    json = new JSON(JSONType.cmd, message);
+                    string j = JsonConvert.SerializeObject(json);
+                    SendMessage(j);
+                    break;
+            }
+        }
+
         public override bool Equals(object obj)
         {
-            return (((User)obj).UserID == UserID);
+            return ((User)obj).UserID == UserID;
         }
     }
 }

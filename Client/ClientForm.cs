@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,21 +31,40 @@ namespace Client
             while (true)
             {
                 string message = Client.ReceiveMessage();
-                textBox1.Invoke((MethodInvoker)delegate
+                JSON json = JsonConvert.DeserializeObject<JSON>(message);
+                switch (json.Type)
                 {
-                    textBox1.Text = message;
-                });
+                    case JSONType.text:
+                        WriteTextToTextBox(json.Data);
+                        break;
+                    case JSONType.cmd:
+                        MessageBox.Show(json.Data);
+                        break;
+                }
+                
             }
         }
 
-        private void KeyUpTextBox1(object sender, KeyEventArgs e)
+        private void WriteTextToTextBox(string text)
         {
-            Client.SendMessage(textBox1.Text);
+            textBox1.Invoke((MethodInvoker)delegate
+            {
+                textBox1.Text = text;
+            });
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Client.Compile(textBox1.Text);
+            JSON json = new JSON(JSONType.compile, textBox1.Text);
+            string j = JsonConvert.SerializeObject(json);
+            Client.SendMessage(j);
+        }
+
+        private void KeyPressTextBox1(object sender, KeyPressEventArgs e)
+        {
+            JSON json = new JSON(JSONType.text, textBox1.Text);
+            string j = JsonConvert.SerializeObject(json);
+            Client.SendMessage(j);
         }
     }
 }
