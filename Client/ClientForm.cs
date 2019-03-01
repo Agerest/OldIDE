@@ -172,7 +172,5 @@ namespace Client
                 writer.Close();
             }
         }
-
-        
     }
 }

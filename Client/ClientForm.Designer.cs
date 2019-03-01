@@ -95,7 +95,7 @@ namespace Client
             this.Controls.Add(this.ipTextBox);
             this.Controls.Add(this.codeTextBox);
             this.Name = "ClientForm";
-            this.Text = "Form1";
+            this.Text = "Client";
             this.ResumeLayout(false);
             this.PerformLayout();
 

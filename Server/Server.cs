@@ -50,7 +50,7 @@ namespace Server
                     userSocket = server.Accept();
                     User user = new User(userSocket, users.Count);
                     users.Add(user);
-                    SendMessage(currentText, user);
+                    user.SendMessage(currentText);
                 }
                 catch (Exception ex)
                 {
@@ -63,11 +63,6 @@ namespace Server
             }
         }
 
-        static void SendMessage(string message, User user)
-        {
-            user.SendMessage(message);
-        }
-
         public static void SendMessageAllUser(string message, User user)
         {
             try
@@ -76,7 +71,7 @@ namespace Server
                 {
                     if (!u.Equals(user))
                     {
-                        SendMessage(message, u);
+                        u.SendMessage(message);
                     }
                 }
             }
