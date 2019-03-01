@@ -45,7 +45,7 @@ namespace Client
             this.codeTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.codeTextBox.Size = new System.Drawing.Size(786, 393);
             this.codeTextBox.TabIndex = 0;
-            this.codeTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDownCodeTextBox);
+            this.codeTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.KeyUpCodeTextBox);
             // 
             // ipTextBox
             // 
