@@ -21,7 +21,7 @@ namespace Client
             client = new Client(ipTextBox.Text, codeTextBox);
             if (client.Connected())
             {
-                statusLabel.Text = "online";
+                statusLabel.Text = "Online";
             }
         }
 
@@ -30,9 +30,9 @@ namespace Client
             client.ButtonCompiteClickEvent(codeTextBox.Text);
         }
 
-        private void KeyPressCodeTextBox(object sender, KeyPressEventArgs e)
+        private void KeyDownCodeTextBox(object sender, KeyEventArgs e)
         {
-            client.KeyPressEvent(codeTextBox.Text);
+            client.KeyDownEvent(codeTextBox.Text);
         }
 
 
@@ -140,7 +140,7 @@ namespace Client
                 SendMessage(j);
             }
 
-            public void KeyPressEvent(string text)
+            public void KeyDownEvent(string text)
             {
                 JSON json = new JSON(JSONType.text, text);
                 string j = JsonConvert.SerializeObject(json);
@@ -155,5 +155,7 @@ namespace Client
                 writer.Close();
             }
         }
+
+        
     }
 }
