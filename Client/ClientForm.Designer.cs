@@ -28,71 +28,72 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.codeTextBox = new System.Windows.Forms.TextBox();
-            this.ipTextBox = new System.Windows.Forms.TextBox();
-            this.connectButton = new System.Windows.Forms.Button();
-            this.compileButton = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // codeTextBox
+            // textBox1
             // 
-            this.codeTextBox.Location = new System.Drawing.Point(2, 45);
-            this.codeTextBox.Multiline = true;
-            this.codeTextBox.Name = "codeTextBox";
-            this.codeTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.codeTextBox.Size = new System.Drawing.Size(786, 393);
-            this.codeTextBox.TabIndex = 0;
-            this.codeTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressTextBox1);
+            this.textBox1.Location = new System.Drawing.Point(2, 45);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.Size = new System.Drawing.Size(786, 393);
+            this.textBox1.TabIndex = 0;
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressTextBox1);
             // 
-            // ipTextBox
+            // textBox2
             // 
-            this.ipTextBox.Location = new System.Drawing.Point(14, 12);
-            this.ipTextBox.Name = "ipTextBox";
-            this.ipTextBox.Size = new System.Drawing.Size(100, 20);
-            this.ipTextBox.TabIndex = 1;
-            this.ipTextBox.Text = "127.0.0.1";
+            this.textBox2.Location = new System.Drawing.Point(14, 12);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 1;
+            this.textBox2.Text = "127.0.0.1";
             // 
-            // connectButton
+            // button1
             // 
-            this.connectButton.Location = new System.Drawing.Point(120, 12);
-            this.connectButton.Name = "connectButton";
-            this.connectButton.Size = new System.Drawing.Size(75, 20);
-            this.connectButton.TabIndex = 2;
-            this.connectButton.Text = "button1";
-            this.connectButton.UseVisualStyleBackColor = true;
-            this.connectButton.Click += new System.EventHandler(this.connectButton_Click);
+            this.button1.Location = new System.Drawing.Point(120, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 20);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // compileButton
+            // button2
             // 
-            this.compileButton.Location = new System.Drawing.Point(312, 9);
-            this.compileButton.Name = "compileButton";
-            this.compileButton.Size = new System.Drawing.Size(75, 23);
-            this.compileButton.TabIndex = 3;
-            this.compileButton.Text = "ПУСК";
-            this.compileButton.UseVisualStyleBackColor = true;
-            this.compileButton.Click += new System.EventHandler(this.compileButton_Click);
+            this.button2.Location = new System.Drawing.Point(312, 9);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "ПУСК";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.compileButton);
-            this.Controls.Add(this.connectButton);
-            this.Controls.Add(this.ipTextBox);
-            this.Controls.Add(this.codeTextBox);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
             this.Name = "ClientForm";
-            this.Text = "Client";
+            this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.TextBox ipTextBox;
-        private System.Windows.Forms.Button connectButton;
-        private System.Windows.Forms.Button compileButton;
-        public System.Windows.Forms.TextBox codeTextBox;
+
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 
