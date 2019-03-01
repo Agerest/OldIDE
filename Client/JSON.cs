@@ -1,4 +1,10 @@
-﻿namespace Client
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Server
 {
     public enum JSONType
     {
@@ -9,8 +15,8 @@
 
     class JSON
     {
-        public JSONType Type { get; }
-        public string Data { get; }
+        public JSONType Type { set;  get; }
+        public string Data { set; get; }
 
         public JSON(JSONType type, string data)
         {

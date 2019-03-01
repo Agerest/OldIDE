@@ -121,7 +121,15 @@ namespace Client
 
             public string ReceiveMessage()
             {
-                string message = reader.ReadString();
+                string message = "";
+                try
+                {
+                    message = reader.ReadString();
+                }
+                catch (Exception ex)
+                {
+                    CloseConnection();
+                }
                 return message;
             }
 
@@ -137,6 +145,14 @@ namespace Client
                 JSON json = new JSON(JSONType.text, text);
                 string j = JsonConvert.SerializeObject(json);
                 SendMessage(j);
+            }
+
+            private void CloseConnection()
+            {
+                client.Close();
+                stream.Close();
+                reader.Close();
+                writer.Close();
             }
         }
     }

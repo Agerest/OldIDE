@@ -63,6 +63,7 @@ namespace Client
             this.connectButton.TabIndex = 2;
             this.connectButton.Text = "Connect";
             this.connectButton.UseVisualStyleBackColor = true;
+            this.connectButton.Click += new System.EventHandler(this.ConnectButton_Click);
             // 
             // compileButton
             // 
