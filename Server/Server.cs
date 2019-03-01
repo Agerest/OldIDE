@@ -43,7 +43,7 @@ namespace Server
             }
 
             users = new List<User>();
-            readXML();
+            //readXML();
             while (true)
             {
                 Socket userSocket;

@@ -19,6 +19,10 @@ namespace Client
         private void ConnectButton_Click(object sender, EventArgs e)
         {
             client = new Client(ipTextBox.Text, codeTextBox);
+            if (client.Connected())
+            {
+                statusLabel.Text = "online";
+            }
         }
 
         private void compileButton_Click(object sender, EventArgs e)
