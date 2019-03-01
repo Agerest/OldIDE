@@ -28,12 +28,15 @@ namespace Client
 
         private void compileButton_Click(object sender, EventArgs e)
         {
-            client.ButtonCompiteClickEvent(codeTextBox.Text);
+            client.Compile(codeTextBox.Text);
         }
 
         private void KeyUpCodeTextBox(object sender, KeyEventArgs e)
         {
-            client.KeyUpEvent(codeTextBox.Text);
+            if (client != null && client.Connected())
+            {
+                client.SendTextCodeTextBox(codeTextBox.Text);
+            }
         }
 
 
@@ -48,9 +51,9 @@ namespace Client
 
             public Client(string ip, TextBox textBox)
             {
+                this.textBox = textBox;
                 int port = 228;
                 Connect(ip, port);
-                this.textBox = textBox;
             }
 
             private void Connect(string ip, int port)
@@ -66,7 +69,6 @@ namespace Client
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
                     return;
                 }
 
@@ -76,12 +78,21 @@ namespace Client
 
             private void Working()
             {
-                while (true)
+                while (connected)
                 {
-                    string message = ReceiveMessage();
-                    JSON json = JsonConvert.DeserializeObject<JSON>(message);
-                    WriteToTextBox(json.Data);
-                    JsonParse(json);
+                    {
+                        try
+                        {
+                            string message = ReceiveMessage();
+                            JSON json = JsonConvert.DeserializeObject<JSON>(message);
+                            WriteToTextBox(json.Data);
+                            JsonParse(json);
+                        } 
+                        catch
+                        {
+                            return;
+                        }
+                    }
                 }
             }
 
@@ -113,7 +124,14 @@ namespace Client
 
             public void SendMessage(string message)
             {
-                writer.Write(message);
+                try
+                {
+                    writer.Write(message);
+                }
+                catch (Exception ex)
+                {
+                    CloseConnection();
+                }
             }
 
             public string ReceiveMessage()
@@ -125,19 +143,20 @@ namespace Client
                 }
                 catch (Exception ex)
                 {
+                    MessageBox.Show(ex.Message);
                     CloseConnection();
                 }
                 return message;
             }
 
-            public void ButtonCompiteClickEvent(string text)
+            public void Compile(string text)
             {
                 JSON json = new JSON(JSONType.compile, text);
                 string j = JsonConvert.SerializeObject(json);
                 SendMessage(j);
             }
 
-            public void KeyUpEvent(string text)
+            public void SendTextCodeTextBox(string text)
             {
                 JSON json = new JSON(JSONType.text, text);
                 string j = JsonConvert.SerializeObject(json);
@@ -146,6 +165,7 @@ namespace Client
 
             private void CloseConnection()
             {
+                connected = false;
                 client.Close();
                 stream.Close();
                 reader.Close();

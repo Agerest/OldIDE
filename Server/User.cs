@@ -22,6 +22,7 @@ namespace Server
             stream = new NetworkStream(user);
             reader = new BinaryReader(stream);
             writer = new BinaryWriter(stream);
+            SendMessage(Server.CurrentText);
             Thread thread = new Thread(Working);
             thread.Start();
         }
