@@ -104,6 +104,7 @@ namespace Server
             {
                 Console.WriteLine("От {0}: {1}", UserID, message);
             }
+            Server.CurrentText = message;
             return message;
         }
 

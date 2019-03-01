@@ -12,6 +12,10 @@ namespace Server
     {
         static List<User> users;
         static int port = 228;
+        static string currentText;
+
+        public static string CurrentText { get => currentText; set => currentText = value; }
+
         static void Main(string[] args)
         {
             Socket server;
@@ -42,6 +46,7 @@ namespace Server
                     userSocket = server.Accept();
                     User user = new User(userSocket, users.Count);
                     users.Add(user);
+                    SendMessage(currentText, user);
                 }
                 catch (Exception ex)
                 {
