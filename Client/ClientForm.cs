@@ -23,7 +23,7 @@ namespace Client
 
         private void compileButton_Click(object sender, EventArgs e)
         {
-
+            client.ButtonCompiteClickEvent(codeTextBox.Text);
         }
 
         private void KeyPressCodeTextBox(object sender, KeyPressEventArgs e)
@@ -135,7 +135,5 @@ namespace Client
                 SendMessage(j);
             }
         }
-
-       
     }
 }
