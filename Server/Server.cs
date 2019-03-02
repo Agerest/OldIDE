@@ -16,9 +16,7 @@ namespace Server
         public static string workFolderPath;
         static List<User> users;
         static int port = 228;
-        static string currentText;
-
-        public static string CurrentText { get => currentText; set => currentText = value; }
+        public static string CurrentText { get; set; }
 
         static void Main(string[] args)
         {
@@ -41,7 +39,9 @@ namespace Server
             }
 
             users = new List<User>();
+
             //readXML();
+
             while (true)
             {
                 Socket userSocket;
@@ -50,7 +50,7 @@ namespace Server
                     userSocket = server.Accept();
                     User user = new User(userSocket, users.Count);
                     users.Add(user);
-                    user.SendMessage(currentText);
+                    if (CurrentText != null) user.SendMessage(CurrentText); 
                 }
                 catch (Exception ex)
                 {
@@ -69,10 +69,7 @@ namespace Server
             {
                 foreach (User u in users)
                 {
-                    if (!u.Equals(user))
-                    {
-                        u.SendMessage(message);
-                    }
+                    if (!u.Equals(user)) u.SendMessage(message);
                 }
             }
             catch (Exception ex)
@@ -92,17 +89,17 @@ namespace Server
             XmlElement xRoot = xDoc.DocumentElement;
             foreach (XmlNode xnode in xRoot)
             {
-                if (xnode.Name == "compile")
+                switch (xnode.Name)
                 {
-                    javacPath = xnode.InnerText;
-                }
-                if (xnode.Name == "run")
-                {
-                    javaPath = xnode.InnerText;
-                }
-                if (xnode.Name == "workFolder")
-                {
-                    workFolderPath = xnode.InnerText;
+                    case "complie":
+                        javacPath = xnode.InnerText;
+                        break;
+                    case "run":
+                        javaPath = xnode.InnerText;
+                        break;
+                    case "workFolder":
+                        workFolderPath = xnode.InnerText;
+                        break;
                 }
             }
         }
@@ -141,10 +138,7 @@ namespace Server
             }
             StreamReader sr = process.StandardOutput;
             StringBuilder sb = new StringBuilder();
-            while (!sr.EndOfStream)
-            {
-                sb.Append(sr.ReadLine()).Append("\n");
-            }
+            while (!sr.EndOfStream) sb.Append(sr.ReadLine()).Append("\n");
             return sb.ToString();
         }
     }
