@@ -74,7 +74,7 @@ namespace Client
             this.CompileButton.TabIndex = 3;
             this.CompileButton.Text = "Compile";
             this.CompileButton.UseVisualStyleBackColor = true;
-            this.CompileButton.Click += new System.EventHandler(this.compileButton_Click);
+            this.CompileButton.Click += new System.EventHandler(this.СompileButton_Click);
             // 
             // StatusLabel
             // 

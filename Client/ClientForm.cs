@@ -11,6 +11,7 @@ namespace Client
     public partial class ClientForm : Form
     {
         private Client Client = new Client();
+
         public ClientForm()
         {
             InitializeComponent();
@@ -25,7 +26,7 @@ namespace Client
             }
         }
 
-        private void compileButton_Click(object sender, EventArgs e)
+        private void СompileButton_Click(object sender, EventArgs e)
         {
             Client.Action(CodeTextBox.Text, ProjectNameTextBox.Text, JSONType.compile);
         }
@@ -40,5 +41,6 @@ namespace Client
             Client.CloseApplication();
         }
 
+        
     }
 }
