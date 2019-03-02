@@ -11,7 +11,7 @@ namespace Server
         private const string ONLINE_STATUS = "Online";
         private const string OFFILE_STATUS = "Offline";
 
-        private Socket Socket;
+        public Socket Socket { get; }
         private NetworkStream stream;
         private BinaryReader reader;
         private BinaryWriter writer;
@@ -102,7 +102,7 @@ namespace Server
 
         public override bool Equals(object obj)
         {
-            return ((User)obj).UserID == UserID;
+            return ((User)obj).Socket == Socket;
         }
 
         private void CloseConnection()

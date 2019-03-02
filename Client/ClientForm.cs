@@ -18,7 +18,11 @@ namespace Client
 
         private void ConnectButton_Click(object sender, EventArgs e)
         {
-            client.SetProperty(ipTextBox.Text, codeTextBox, statusLabel);
+            if (!client.Connected)
+            {
+                client.SetProperty(ipTextBox.Text, codeTextBox, statusLabel);
+                client.Connect();
+            }
         }
 
         private void compileButton_Click(object sender, EventArgs e)
@@ -43,6 +47,7 @@ namespace Client
             private const string ONLINE_STATUS = "Online";
             private const string OFFILE_STATUS = "Offline";
 
+            private string ip;
             private Socket socket;
             private NetworkStream stream;
             private BinaryReader reader;
@@ -53,14 +58,14 @@ namespace Client
 
             public void SetProperty(string ip, TextBox textBox, Label label)
             {
+                this.ip = ip;
                 Status = label;
                 this.textBox = textBox;
-                int port = 228;
-                Connect(ip, port);
             }
 
-            private void Connect(string ip, int port)
+            public void Connect()
             {
+                int port = 228;
                 try
                 {
                     socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
