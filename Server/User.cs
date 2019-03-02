@@ -59,7 +59,7 @@ namespace Server
             string message =  "";
             try
             {
-                reader.ReadString(message);
+                message = reader.ReadString();
                 Console.WriteLine("От {0}: {1}", UserID, message);
             }
             catch (Exception ex)
