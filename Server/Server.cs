@@ -26,16 +26,13 @@ namespace Server
                 server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 server.Bind(new IPEndPoint(IPAddress.Any, port));
                 server.Listen(10);
+                Console.WriteLine("Сервер создан успешно");
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.ReadKey();
                 return;
-            }
-            finally
-            {
-                Console.WriteLine("Сервер создан успешно");
             }
 
             users = new List<User>();
@@ -49,16 +46,13 @@ namespace Server
                 {
                     userSocket = server.Accept();
                     User user = new User(userSocket, users.Count);
+                    Console.WriteLine("New user connected. ID = " + (users.Count - 1));
                     users.Add(user);
                     if (CurrentText != null) user.SendMessage(CurrentText); 
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                }
-                finally
-                {
-                    Console.WriteLine("New user connected");
                 }
             }
         }
@@ -68,14 +62,11 @@ namespace Server
             try
             {
                 foreach (User u in users) if (!u.Equals(user)) u.SendMessage(message);
+                Console.WriteLine("Отправка сообщения всем пользователям успешна");
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                Console.WriteLine("Отправка сообщения всем пользователям успешна");
             }
         }
 
@@ -128,9 +119,7 @@ namespace Server
             using (StreamWriter pWriter = process.StandardInput)
             {
                 if (pWriter.BaseStream.CanWrite)
-                {
                     foreach (var line in commands.Split('\n')) pWriter.WriteLine(line);
-                }
             }
             StreamReader sr = process.StandardOutput;
             StringBuilder sb = new StringBuilder();
