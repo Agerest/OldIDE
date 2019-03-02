@@ -20,19 +20,19 @@ namespace Client
         {
             if (!Client.Connected)
             {
-                Client.SetProperty(ipTextBox.Text, codeTextBox, statusLabel);
+                Client.SetProperty(IPTextBox.Text, CodeTextBox, StatusLabel);
                 Client.Connect();
             }
         }
 
         private void compileButton_Click(object sender, EventArgs e)
         {
-            Client.Action(codeTextBox.Text, textBox1.Text, JSONType.compile);
+            Client.Action(CodeTextBox.Text, ProjectNameTextBox.Text, JSONType.compile);
         }
 
         private void KeyUpCodeTextBox(object sender, KeyEventArgs e)
         {
-            if (Client != null && Client.Connected) Client.Action(codeTextBox.Text,JSONType.text);
+            if (Client != null && Client.Connected) Client.Action(CodeTextBox.Text,JSONType.text);
         }
 
         private void Exit(object sender, FormClosingEventArgs e)
