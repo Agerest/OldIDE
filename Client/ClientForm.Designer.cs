@@ -30,70 +30,80 @@ namespace Client
         /// </summary>
         private void InitializeComponent()
         {
-            this.codeTextBox = new System.Windows.Forms.TextBox();
-            this.ipTextBox = new System.Windows.Forms.TextBox();
-            this.connectButton = new System.Windows.Forms.Button();
-            this.compileButton = new System.Windows.Forms.Button();
-            this.statusLabel = new System.Windows.Forms.Label();
+            this.CodeTextBox = new System.Windows.Forms.TextBox();
+            this.IPTextBox = new System.Windows.Forms.TextBox();
+            this.ConnectButton = new System.Windows.Forms.Button();
+            this.CompileButton = new System.Windows.Forms.Button();
+            this.StatusLabel = new System.Windows.Forms.Label();
+            this.ProjectNameTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // codeTextBox
+            // CodeTextBox
             // 
-            this.codeTextBox.Location = new System.Drawing.Point(2, 45);
-            this.codeTextBox.Multiline = true;
-            this.codeTextBox.Name = "codeTextBox";
-            this.codeTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.codeTextBox.Size = new System.Drawing.Size(786, 393);
-            this.codeTextBox.TabIndex = 0;
-            this.codeTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.KeyUpCodeTextBox);
+            this.CodeTextBox.Location = new System.Drawing.Point(2, 45);
+            this.CodeTextBox.Multiline = true;
+            this.CodeTextBox.Name = "CodeTextBox";
+            this.CodeTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.CodeTextBox.Size = new System.Drawing.Size(786, 393);
+            this.CodeTextBox.TabIndex = 0;
+            this.CodeTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.KeyUpCodeTextBox);
             // 
-            // ipTextBox
+            // IPTextBox
             // 
-            this.ipTextBox.Location = new System.Drawing.Point(55, 10);
-            this.ipTextBox.Name = "ipTextBox";
-            this.ipTextBox.Size = new System.Drawing.Size(100, 20);
-            this.ipTextBox.TabIndex = 1;
-            this.ipTextBox.Text = "127.0.0.1";
+            this.IPTextBox.Location = new System.Drawing.Point(55, 10);
+            this.IPTextBox.Name = "IPTextBox";
+            this.IPTextBox.Size = new System.Drawing.Size(100, 20);
+            this.IPTextBox.TabIndex = 1;
+            this.IPTextBox.Text = "127.0.0.1";
             // 
-            // connectButton
+            // ConnectButton
             // 
-            this.connectButton.Location = new System.Drawing.Point(161, 10);
-            this.connectButton.Name = "connectButton";
-            this.connectButton.Size = new System.Drawing.Size(75, 20);
-            this.connectButton.TabIndex = 2;
-            this.connectButton.Text = "Connect";
-            this.connectButton.UseVisualStyleBackColor = true;
-            this.connectButton.Click += new System.EventHandler(this.ConnectButton_Click);
+            this.ConnectButton.Location = new System.Drawing.Point(161, 10);
+            this.ConnectButton.Name = "ConnectButton";
+            this.ConnectButton.Size = new System.Drawing.Size(75, 20);
+            this.ConnectButton.TabIndex = 2;
+            this.ConnectButton.Text = "Connect";
+            this.ConnectButton.UseVisualStyleBackColor = true;
+            this.ConnectButton.Click += new System.EventHandler(this.ConnectButton_Click);
             // 
-            // compileButton
+            // CompileButton
             // 
-            this.compileButton.Location = new System.Drawing.Point(242, 10);
-            this.compileButton.Name = "compileButton";
-            this.compileButton.Size = new System.Drawing.Size(75, 20);
-            this.compileButton.TabIndex = 3;
-            this.compileButton.Text = "Compile";
-            this.compileButton.UseVisualStyleBackColor = true;
-            this.compileButton.Click += new System.EventHandler(this.compileButton_Click);
+            this.CompileButton.Location = new System.Drawing.Point(370, 9);
+            this.CompileButton.Name = "CompileButton";
+            this.CompileButton.Size = new System.Drawing.Size(75, 20);
+            this.CompileButton.TabIndex = 3;
+            this.CompileButton.Text = "Compile";
+            this.CompileButton.UseVisualStyleBackColor = true;
+            this.CompileButton.Click += new System.EventHandler(this.СompileButton_Click);
             // 
-            // statusLabel
+            // StatusLabel
             // 
-            this.statusLabel.AutoSize = true;
-            this.statusLabel.Location = new System.Drawing.Point(12, 13);
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(37, 13);
-            this.statusLabel.TabIndex = 4;
-            this.statusLabel.Text = "Offline";
+            this.StatusLabel.AutoSize = true;
+            this.StatusLabel.Location = new System.Drawing.Point(12, 13);
+            this.StatusLabel.Name = "StatusLabel";
+            this.StatusLabel.Size = new System.Drawing.Size(37, 13);
+            this.StatusLabel.TabIndex = 4;
+            this.StatusLabel.Text = "Offline";
+            // 
+            // ProjectNameTextBox
+            // 
+            this.ProjectNameTextBox.Location = new System.Drawing.Point(253, 10);
+            this.ProjectNameTextBox.Name = "ProjectNameTextBox";
+            this.ProjectNameTextBox.Size = new System.Drawing.Size(100, 20);
+            this.ProjectNameTextBox.TabIndex = 5;
+            this.ProjectNameTextBox.Text = "HelloWorld";
             // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.statusLabel);
-            this.Controls.Add(this.compileButton);
-            this.Controls.Add(this.connectButton);
-            this.Controls.Add(this.ipTextBox);
-            this.Controls.Add(this.codeTextBox);
+            this.Controls.Add(this.ProjectNameTextBox);
+            this.Controls.Add(this.StatusLabel);
+            this.Controls.Add(this.CompileButton);
+            this.Controls.Add(this.ConnectButton);
+            this.Controls.Add(this.IPTextBox);
+            this.Controls.Add(this.CodeTextBox);
             this.Name = "ClientForm";
             this.Text = "Client";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Exit);
@@ -104,11 +114,12 @@ namespace Client
 
         #endregion
 
-        private System.Windows.Forms.TextBox codeTextBox;
-        private System.Windows.Forms.TextBox ipTextBox;
-        private System.Windows.Forms.Button connectButton;
-        private System.Windows.Forms.Button compileButton;
-        private System.Windows.Forms.Label statusLabel;
+        private System.Windows.Forms.TextBox CodeTextBox;
+        private System.Windows.Forms.TextBox IPTextBox;
+        private System.Windows.Forms.Button ConnectButton;
+        private System.Windows.Forms.Button CompileButton;
+        private System.Windows.Forms.Label StatusLabel;
+        private System.Windows.Forms.TextBox ProjectNameTextBox;
     }
 }
 

@@ -12,28 +12,28 @@ namespace Server
         private const string OFFILE_STATUS = "Offline";
 
         public Socket Socket { get; }
-        private NetworkStream stream;
-        private BinaryReader reader;
-        private BinaryWriter writer;
-        private bool connected = false;
+        private NetworkStream Stream;
+        private BinaryReader Reader;
+        private BinaryWriter Writer;
+        private bool Connected = false;
         public int UserID { get; }
-        private Thread thread;
+        private Thread Thread;
 
         public User(Socket user, int userID)
         {
             Socket = user;
             UserID = userID;
-            stream = new NetworkStream(user);
-            reader = new BinaryReader(stream);
-            writer = new BinaryWriter(stream);
-            thread = new Thread(Working);
-            thread.Start();
-            connected = true;
+            Stream = new NetworkStream(user);
+            Reader = new BinaryReader(Stream);
+            Writer = new BinaryWriter(Stream);
+            Thread = new Thread(Working);
+            Thread.Start();
+            Connected = true;
         }
 
         private void Working()
         {
-            while (connected)
+            while (Connected)
             {
                 string message = ReceiveMessage();
                 JsonParse(message);
@@ -44,8 +44,8 @@ namespace Server
         {
             try
             {
-                writer.Write(message);
-                writer.Flush();
+                Writer.Write(message);
+                Writer.Flush();
                 Console.WriteLine("К {0}: {1}", UserID, message);
             }
             catch (Exception ex)
@@ -60,7 +60,7 @@ namespace Server
             string message =  "";
             try
             {
-                message = reader.ReadString();
+                message = Reader.ReadString();
                 Console.WriteLine("От {0}: {1}", UserID, message);
             }
             catch (Exception ex)
@@ -85,8 +85,8 @@ namespace Server
                         Server.SendMessageAllUser(jsonSerialize, this);
                         break;
                     case JSONType.compile:
-                        string message = Server.Compile(json.Data);
-                        json = new JSON(JSONType.cmd, message);
+                        string message = Compiler.Compile(json.Data, json.Data2);
+                        json = new JSON(JSONType.compile, message, null);
                         string j = JsonConvert.SerializeObject(json);
                         SendMessage(j);
                         break;
@@ -109,10 +109,10 @@ namespace Server
         private void CloseConnection()
         {
             Server.Users.Remove(this);
-            connected = false;
-            reader.Close();
-            writer.Close();
-            stream.Close();
+            Connected = false;
+            Reader.Close();
+            Writer.Close();
+            Stream.Close();
             Socket.Shutdown(SocketShutdown.Both);
             Socket.Close();
             Console.WriteLine("Connection closed");
