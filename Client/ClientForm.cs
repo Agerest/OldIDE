@@ -94,7 +94,6 @@ namespace Client
                         } 
                         catch
                         {
-                            CloseConnection();
                             return;
                         }
                     }
@@ -115,11 +114,6 @@ namespace Client
                 {
                     textBox.Text = text;
                 });
-            }
-
-            public bool Connected()
-            {
-                return connected;
             }
 
             public void SendMessage(string message)
