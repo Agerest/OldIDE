@@ -28,7 +28,7 @@ namespace Client
 
         private void KeyUpCodeTextBox(object sender, KeyEventArgs e)
         {
-            if (client != null && client.Connected()) client.SendCodeText(codeTextBox.Text);
+            if (client != null && client.Connected) client.SendCodeText(codeTextBox.Text);
         }
 
         private void Exit(object sender, FormClosingEventArgs e)
@@ -47,9 +47,9 @@ namespace Client
             private NetworkStream stream;
             private BinaryReader reader;
             private BinaryWriter writer;
-            private bool connected = false;
-            public TextBox textBox { get;  set; }
-            public Label Status { get;  set; }
+            public bool Connected = false;
+            private TextBox textBox { get;  set; }
+            private Label Status { get;  set; }
 
             public void SetProperty(string ip, TextBox textBox, Label label)
             {
@@ -68,7 +68,7 @@ namespace Client
                     stream = new NetworkStream(socket);
                     reader = new BinaryReader(stream);
                     writer = new BinaryWriter(stream);
-                    connected = true;
+                    Connected = true;
                     WriteToStatusLabel(ONLINE_STATUS);
                 }
                 catch
@@ -121,6 +121,7 @@ namespace Client
                 try
                 {
                     writer.Write(message);
+                    writer.Flush();
                 }
                 catch
                 {
@@ -186,11 +187,18 @@ namespace Client
 
             private void CloseConnection()
             {
-                socket.Close();
-                stream.Close();
-                reader.Close();
-                writer.Close();
-                WriteToStatusLabel(OFFILE_STATUS);
+                try
+                {
+                    socket.Close();
+                    stream.Close();
+                    reader.Close();
+                    writer.Close();
+                    WriteToStatusLabel(OFFILE_STATUS);
+                } 
+                catch
+                {
+                    return;
+                }
             }
         }
 

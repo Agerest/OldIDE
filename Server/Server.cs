@@ -42,17 +42,14 @@ namespace Server
 
             while (true)
             {
-                Socket userSocket;
+                Socket userSocket = new Socket(SocketType.Stream, ProtocolType.Tcp);
                 try
                 {
                     userSocket = server.Accept();
                     User user = new User(userSocket, Users.Count);
-                    if (!Users.Contains(user))
-                    {
-                        Console.WriteLine("New user connected. ID = " + Users.Count);
-                        Users.Add(user);
-                        if (CurrentText != null) user.SendMessage(CurrentText);
-                    }
+                    Console.WriteLine("New user connected. ID = " + Users.Count);
+                    Users.Add(user);
+                    if (CurrentText != null) user.SendMessage(CurrentText);
                 }
                 catch (Exception ex)
                 {
@@ -77,7 +74,7 @@ namespace Server
         private static void readXML()
         {
             XmlDocument xDoc = new XmlDocument();
-            xDoc.Load(@"C:\Users\Agerest\Source\Repos\Shorin1\IDE\Server\main.xml");//не знаю как нормально путь здесь прописать
+            xDoc.Load(@"D:\Projects\C#\IDE1\Server\main.xml");//не знаю как нормально путь здесь прописать
             XmlElement xRoot = xDoc.DocumentElement;
             foreach (XmlNode xnode in xRoot)
             {
