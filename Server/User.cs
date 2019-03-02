@@ -109,7 +109,6 @@ namespace Server
         {
             Server.Users.Remove(this);
             connected = false;
-            thread.Abort();
             reader.Close();
             writer.Close();
             stream.Close();
