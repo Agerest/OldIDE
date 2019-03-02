@@ -67,10 +67,7 @@ namespace Server
         {
             try
             {
-                foreach (User u in users)
-                {
-                    if (!u.Equals(user)) u.SendMessage(message);
-                }
+                foreach (User u in users) if (!u.Equals(user)) u.SendMessage(message);
             }
             catch (Exception ex)
             {
@@ -132,8 +129,7 @@ namespace Server
             {
                 if (pWriter.BaseStream.CanWrite)
                 {
-                    foreach (var line in commands.Split('\n'))
-                        pWriter.WriteLine(line);
+                    foreach (var line in commands.Split('\n')) pWriter.WriteLine(line);
                 }
             }
             StreamReader sr = process.StandardOutput;
