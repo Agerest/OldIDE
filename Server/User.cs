@@ -68,7 +68,6 @@ namespace Server
                 Console.WriteLine(ex.Message);
             }
 
-            Server.CurrentText = message;
             return message;
         }
 
@@ -81,6 +80,7 @@ namespace Server
                 switch (json.Type)
                 {
                     case JSONType.text:
+                        Server.CurrentText = json.Data;
                         Server.SendMessageAllUser(jsonSerialize, this);
                         break;
                     case JSONType.compile:
