@@ -8,6 +8,9 @@ namespace Server
 {
     class User
     {
+        private const string ONLINE_STATUS = "Online";
+        private const string OFFILE_STATUS = "Offline";
+
         private Socket user;
         private NetworkStream stream;
         private BinaryReader reader;
@@ -82,7 +85,7 @@ namespace Server
                     SendMessage(j);*/
                     break;
                 case JSONType.status:
-                    if (json.Data == "Offile") CloseConnection();
+                    if (json.Data == OFFILE_STATUS) CloseConnection();
                     break;
             }
         }
@@ -99,6 +102,7 @@ namespace Server
             stream.Close();
             reader.Close();
             writer.Close();
+            Console.WriteLine("Connection closed");
         }
 
         private void OnApplicationExit(object sender, EventArgs e)

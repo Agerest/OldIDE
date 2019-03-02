@@ -10,7 +10,8 @@ namespace Client
     {
         text,
         compile,
-        cmd
+        cmd,
+        status
     }
 
     class JSON

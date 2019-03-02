@@ -31,6 +31,12 @@ namespace Client
             if (client != null && client.Connected()) client.SendCodeText(codeTextBox.Text);
         }
 
+        private void Exit(object sender, FormClosingEventArgs e)
+        {
+            client.CloseApplication();
+        }
+
+
 
         class Client
         {
@@ -95,19 +101,6 @@ namespace Client
                 }
             }
 
-            private void JsonParse(JSON json)
-            {
-                switch (json.Type)
-                {
-                    case JSONType.text:
-                        WriteToTextBox(json.Data);
-                        break;
-                    case JSONType.cmd:
-                        MessageBox.Show(json.Data);
-                        break;
-                }
-            }
-
             private void WriteToStatusLabel(string text)
             {
                 status.Invoke((MethodInvoker)delegate
@@ -155,11 +148,34 @@ namespace Client
                 return message;
             }
 
+            private void JsonParse(JSON json)
+            {
+                switch (json.Type)
+                {
+                    case JSONType.text:
+                        WriteToTextBox(json.Data);
+                        break;
+                    case JSONType.cmd:
+                        MessageBox.Show(json.Data);
+                        break;
+                    case JSONType.status:
+                        if (json.Data == OFFILE_STATUS) CloseConnection();
+                        break;
+                }
+            }
+
             public void Compile(string text)
             {
                 JSON json = new JSON(JSONType.compile, text);
                 string j = JsonConvert.SerializeObject(json);
                 SendMessage(j);
+            }
+
+            public void SendStatus(string status)
+            {
+                JSON json = new JSON(JSONType.status, status);
+                string message = JsonConvert.SerializeObject(json);
+                SendMessage(message);
             }
 
             public void SendCodeText(string text)
@@ -169,9 +185,14 @@ namespace Client
                 SendMessage(j);
             }
 
+            public void CloseApplication()
+            {
+                SendStatus(OFFILE_STATUS);
+                CloseConnection();
+            }
+
             private void CloseConnection()
             {
-                connected = false;
                 client.Close();
                 stream.Close();
                 reader.Close();
@@ -179,5 +200,6 @@ namespace Client
                 WriteToStatusLabel(OFFILE_STATUS);
             }
         }
+
     }
 }

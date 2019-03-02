@@ -96,6 +96,7 @@ namespace Client
             this.Controls.Add(this.codeTextBox);
             this.Name = "ClientForm";
             this.Text = "Client";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Exit);
             this.ResumeLayout(false);
             this.PerformLayout();
 
