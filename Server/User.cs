@@ -40,14 +40,12 @@ namespace Server
             try
             {
                 writer.Write(message);
+                Console.WriteLine("К {0}: {1}", UserID, message);
             }
             catch (Exception ex)
             {
+                CloseConnection();
                 Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                Console.WriteLine("К {0}: {1}", UserID, message);
             }
         }
 
@@ -57,15 +55,14 @@ namespace Server
             try
             {
                 message = reader.ReadString();
+                Console.WriteLine("От {0}: {1}", UserID, message);
             }
             catch (Exception ex)
             {
+                CloseConnection();
                 Console.WriteLine(ex.Message);
             }
-            finally
-            {
-                Console.WriteLine("От {0}: {1}", UserID, message);
-            }
+
             Server.CurrentText = message;
             return message;
         }
@@ -84,12 +81,29 @@ namespace Server
                     string j = JsonConvert.SerializeObject(json);
                     SendMessage(j);*/
                     break;
+                case JSONType.status:
+                    if (json.Data == "Offile") CloseConnection();
+                    break;
             }
         }
 
         public override bool Equals(object obj)
         {
-            return ((User)obj).user == user;
+            return ((User)obj).UserID == UserID;
+        }
+
+        private void CloseConnection()
+        {
+            Server.Users.Remove(this);
+            user.Close();
+            stream.Close();
+            reader.Close();
+            writer.Close();
+        }
+
+        private void OnApplicationExit(object sender, EventArgs e)
+        {
+            CloseConnection();
         }
     }
 }

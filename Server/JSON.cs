@@ -10,7 +10,8 @@ namespace Server
     {
         text,
         compile,
-        cmd
+        cmd,
+        status
     }
 
     class JSON

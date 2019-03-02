@@ -11,12 +11,13 @@ namespace Server
 {
     class Server
     {
-        public static string javacPath;
-        public static string javaPath;
-        public static string workFolderPath;
-        static List<User> users;
-        static int port = 228;
+        private static string javacPath;
+        private static string javaPath;
+        private static string workFolderPath;
+        private static int port = 228;
+
         public static string CurrentText { get; set; }
+        public static List<User> Users { get => Users; set => Users = value; }
 
         static void Main(string[] args)
         {
@@ -35,7 +36,7 @@ namespace Server
                 return;
             }
 
-            users = new List<User>();
+            Users = new List<User>();
 
             //readXML();
 
@@ -45,11 +46,11 @@ namespace Server
                 try
                 {
                     userSocket = server.Accept();
-                    User user = new User(userSocket, users.Count);
-                    if (!users.Contains(user))
+                    User user = new User(userSocket, Users.Count);
+                    if (!Users.Contains(user))
                     {
-                        Console.WriteLine("New user connected. ID = " + (users.Count - 1));
-                        users.Add(user);
+                        Console.WriteLine("New user connected. ID = " + Users.Count);
+                        Users.Add(user);
                         if (CurrentText != null) user.SendMessage(CurrentText);
                     }
                 }
@@ -64,7 +65,7 @@ namespace Server
         {
             try
             {
-                foreach (User u in users) if (!u.Equals(user)) u.SendMessage(message);
+                foreach (User u in Users) if (!u.Equals(user)) u.SendMessage(message);
                 Console.WriteLine("Отправка сообщения всем пользователям успешна");
             }
             catch (Exception ex)
