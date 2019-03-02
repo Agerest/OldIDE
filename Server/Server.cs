@@ -38,7 +38,7 @@ namespace Server
 
             Users = new List<User>();
 
-            //readXML();
+            readXML();
 
             while (true)
             {
@@ -77,13 +77,13 @@ namespace Server
         private static void readXML()
         {
             XmlDocument xDoc = new XmlDocument();
-            xDoc.Load("main.xml");
+            xDoc.Load(@"C:\Users\Agerest\Source\Repos\Shorin1\IDE\Server\main.xml");//не знаю как нормально путь здесь прописать
             XmlElement xRoot = xDoc.DocumentElement;
             foreach (XmlNode xnode in xRoot)
             {
                 switch (xnode.Name)
                 {
-                    case "complie":
+                    case "compile":
                         javacPath = xnode.InnerText;
                         break;
                     case "run":
@@ -96,14 +96,19 @@ namespace Server
             }
         }
 
-        public static string Compile(string program)
+        public static string Compile(string program) //сделал более читабельным
         {
             string writePath = "test";
             StreamWriter sw = new StreamWriter(writePath + ".java", false, System.Text.Encoding.Default);
             sw.WriteLine(program);
             sw.Close();
-            runCmd(@"""" + javacPath + @""" " + workFolderPath + writePath + @".java""");
-            return runCmd(@"""" + javaPath + @""" -classpath " + workFolderPath + @" " + writePath);
+            runCmd(toQuotes(javacPath) + " " + toQuotes(workFolderPath + writePath + ".java"));
+            return runCmd(toQuotes(javaPath) + " -classpath " + workFolderPath + " " + writePath);
+        }
+
+        private static string toQuotes (string str) //добавление кавычек
+        {
+            return "\"" + str + "\"";
         }
 
         private static string runCmd(string commands)

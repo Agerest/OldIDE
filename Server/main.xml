@@ -1,4 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+<java>
   <compile>C:\Program Files\Java\jdk-11.0.2\bin\javac.exe</compile>
   <run>C:\Program Files\Java\jdk-11.0.2\bin\java.exe</run>
-  <workFolder>D:\Projects\C#\IDE\Server\bin\Debug\</workFolder>
+  <workFolder>C:\Users\Agerest\source\repos\Shorin1\IDE\Server\bin\Debug\</workFolder>
+</java>

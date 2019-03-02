@@ -80,9 +80,9 @@ namespace Server
                     break;
                 case JSONType.compile:
                     string message = Server.Compile(json.Data);
-                    /*json = new JSON(JSONType.cmd, message);
+                    json = new JSON(JSONType.cmd, message);
                     string j = JsonConvert.SerializeObject(json);
-                    SendMessage(j);*/
+                    SendMessage(j);
                     break;
                 case JSONType.status:
                     if (json.Data == OFFILE_STATUS) CloseConnection();
