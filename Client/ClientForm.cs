@@ -188,7 +188,6 @@ namespace Client
             public void CloseApplication()
             {
                 SendStatus(OFFILE_STATUS);
-                CloseConnection();
             }
 
             private void CloseConnection()
