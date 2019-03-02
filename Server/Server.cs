@@ -50,13 +50,7 @@ namespace Server
                     User user = new User(userSocket, Users.Count);
                     Console.WriteLine("New user connected. ID = " + Users.Count);
                     Users.Add(user);
-                    if (CurrentText == null)
-                    {
-                        JSON json = new JSON(JSONType.text, "1");
-                        string message = JsonConvert.SerializeObject(json);
-                        user.SendMessage(message);
-                    }
-                    else
+                    if (CurrentText != null)
                     {
                         JSON json = new JSON(JSONType.text, CurrentText);
                         string message = JsonConvert.SerializeObject(json);
