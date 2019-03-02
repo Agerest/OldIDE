@@ -35,6 +35,7 @@ namespace Client
             this.connectButton = new System.Windows.Forms.Button();
             this.compileButton = new System.Windows.Forms.Button();
             this.statusLabel = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // codeTextBox
@@ -67,7 +68,7 @@ namespace Client
             // 
             // compileButton
             // 
-            this.compileButton.Location = new System.Drawing.Point(242, 10);
+            this.compileButton.Location = new System.Drawing.Point(370, 9);
             this.compileButton.Name = "compileButton";
             this.compileButton.Size = new System.Drawing.Size(75, 20);
             this.compileButton.TabIndex = 3;
@@ -84,11 +85,20 @@ namespace Client
             this.statusLabel.TabIndex = 4;
             this.statusLabel.Text = "Offline";
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(253, 10);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 5;
+            this.textBox1.Text = "HelloWorld";
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.compileButton);
             this.Controls.Add(this.connectButton);
@@ -109,6 +119,7 @@ namespace Client
         private System.Windows.Forms.Button connectButton;
         private System.Windows.Forms.Button compileButton;
         private System.Windows.Forms.Label statusLabel;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

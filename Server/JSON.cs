@@ -10,7 +10,6 @@ namespace Server
     {
         text,
         compile,
-        cmd,
         status
     }
 
@@ -18,11 +17,13 @@ namespace Server
     {
         public JSONType Type { set;  get; }
         public string Data { set; get; }
+        public string Data2 { set; get; }
 
-        public JSON(JSONType type, string data)
+        public JSON(JSONType type, string data, string data2)
         {
             Type = type;
             Data = data;
+            Data2 = data2;
         }
     }
 }

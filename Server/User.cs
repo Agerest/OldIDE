@@ -85,8 +85,8 @@ namespace Server
                         Server.SendMessageAllUser(jsonSerialize, this);
                         break;
                     case JSONType.compile:
-                        string message = Server.Compile(json.Data);
-                        json = new JSON(JSONType.cmd, message);
+                        string message = Compiler.Compile(json.Data, json.Data2);
+                        json = new JSON(JSONType.compile, message, null);
                         string j = JsonConvert.SerializeObject(json);
                         SendMessage(j);
                         break;
