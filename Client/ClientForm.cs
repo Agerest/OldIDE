@@ -10,7 +10,7 @@ namespace Client
 {
     public partial class ClientForm : Form
     {
-        private Client client;
+        private Client client = new Client();
         public ClientForm()
         {
             InitializeComponent();
@@ -18,7 +18,7 @@ namespace Client
 
         private void ConnectButton_Click(object sender, EventArgs e)
         {
-            client = new Client(ipTextBox.Text, codeTextBox, statusLabel);
+            client.SetProperty(ipTextBox.Text, codeTextBox, statusLabel);
         }
 
         private void compileButton_Click(object sender, EventArgs e)
@@ -43,17 +43,17 @@ namespace Client
             private const string ONLINE_STATUS = "Online";
             private const string OFFILE_STATUS = "Offline";
 
-            private Socket client;
+            private Socket socket;
             private NetworkStream stream;
             private BinaryReader reader;
             private BinaryWriter writer;
             private bool connected = false;
-            private TextBox textBox;
-            private Label status;
+            public TextBox textBox { get;  set; }
+            public Label Status { get;  set; }
 
-            public Client(string ip, TextBox textBox, Label label)
+            public void SetProperty(string ip, TextBox textBox, Label label)
             {
-                status = label;
+                Status = label;
                 this.textBox = textBox;
                 int port = 228;
                 Connect(ip, port);
@@ -63,9 +63,9 @@ namespace Client
             {
                 try
                 {
-                    client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    client.Connect(new IPEndPoint(IPAddress.Parse(ip), port));
-                    stream = new NetworkStream(client);
+                    socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    socket.Connect(new IPEndPoint(IPAddress.Parse(ip), port));
+                    stream = new NetworkStream(socket);
                     reader = new BinaryReader(stream);
                     writer = new BinaryWriter(stream);
                     connected = true;
@@ -103,9 +103,9 @@ namespace Client
 
             private void WriteToStatusLabel(string text)
             {
-                status.Invoke((MethodInvoker)delegate
+                Status.Invoke((MethodInvoker)delegate
                 {
-                    status.Text = text;
+                    Status.Text = text;
                 });
             }
 
@@ -193,7 +193,7 @@ namespace Client
 
             private void CloseConnection()
             {
-                client.Close();
+                socket.Close();
                 stream.Close();
                 reader.Close();
                 writer.Close();
