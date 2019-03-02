@@ -17,7 +17,7 @@ namespace Server
         private static int port = 228;
 
         public static string CurrentText { get; set; }
-        public static List<User> Users { get => Users; set => Users = value; }
+        public static List<User> Users { get; set; }
 
         static void Main(string[] args)
         {
