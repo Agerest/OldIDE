@@ -76,8 +76,10 @@ namespace Client
                     Connected = true;
                     WriteToStatusLabel(ONLINE_STATUS);
                 }
-                catch
+                catch (Exception ex)
                 {
+                    MessageBox.Show(ex.Message);
+                    return;
                 }
 
                 Thread thread = new Thread(Working);
