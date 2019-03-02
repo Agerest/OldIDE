@@ -8,9 +8,9 @@ namespace Client
 {
     public enum JSONType
     {
-        text,
-        compile,
-        status
+        Text,
+        Compile,
+        Status
     }
 
     class JSON

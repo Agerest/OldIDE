@@ -28,12 +28,12 @@ namespace Client
 
         private void СompileButton_Click(object sender, EventArgs e)
         {
-            Client.Action(CodeTextBox.Text, ProjectNameTextBox.Text, JSONType.compile);
+            Client.Action(CodeTextBox.Text, ProjectNameTextBox.Text, JSONType.Compile);
         }
 
         private void KeyUpCodeTextBox(object sender, KeyEventArgs e)
         {
-            if (Client != null && Client.Connected) Client.Action(CodeTextBox.Text,JSONType.text);
+            if (Client != null && Client.Connected) Client.Action(CodeTextBox.Text,JSONType.Text);
         }
 
         private void Exit(object sender, FormClosingEventArgs e)

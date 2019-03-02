@@ -12,9 +12,9 @@ namespace Server
     static class Compiler
     {
         private const string XMLPATH = @"C:\Users\Agerest\source\repos\Shorin1\IDE\Server\main.xml";
-        private static string javacPath;
-        private static string javaPath;
-        private static string workFolderPath;
+        private static string JavacPath;
+        private static string JavaPath;
+        private static string WorkFolderPath;
 
         private static void ReadXML()
         {
@@ -26,13 +26,13 @@ namespace Server
                 switch (xnode.Name)
                 {
                     case "compile":
-                        javacPath = xnode.InnerText;
+                        JavacPath = xnode.InnerText;
                         break;
                     case "run":
-                        javaPath = xnode.InnerText;
+                        JavaPath = xnode.InnerText;
                         break;
                     case "workFolder":
-                        workFolderPath = xnode.InnerText;
+                        WorkFolderPath = xnode.InnerText;
                         break;
                 }
             }
@@ -43,10 +43,10 @@ namespace Server
             StreamWriter sw = new StreamWriter(nameClass + ".java", false, System.Text.Encoding.Default);
             sw.WriteLine(program);
             sw.Close();
-            RunCmd(toQuotes(javacPath) + " " + toQuotes(workFolderPath + @"\" + nameClass + ".java"));
-            return RunCmd(toQuotes(javaPath) + " -classpath " + workFolderPath + " " + nameClass);
+            RunCmd(ToQuotes(JavacPath) + " " + ToQuotes(WorkFolderPath + @"\" + nameClass + ".java"));
+            return RunCmd(ToQuotes(JavaPath) + " -classpath " + WorkFolderPath + " " + nameClass);
         }
-        private static string toQuotes(string str)
+        private static string ToQuotes(string str)
         {
             return "\"" + str + "\"";
         }

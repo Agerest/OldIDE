@@ -20,7 +20,7 @@ namespace Client
 
         private string IP;
         private Socket Socket;
-        private NetworkStream stream;
+        private NetworkStream Stream;
         private BinaryReader Reader;
         private BinaryWriter Writer;
         public bool Connected = false;
@@ -40,9 +40,9 @@ namespace Client
             {
                 Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 Socket.Connect(new IPEndPoint(IPAddress.Parse(IP), PORT));
-                stream = new NetworkStream(Socket);
-                Reader = new BinaryReader(stream);
-                Writer = new BinaryWriter(stream);
+                Stream = new NetworkStream(Socket);
+                Reader = new BinaryReader(Stream);
+                Writer = new BinaryWriter(Stream);
                 Connected = true;
                 WriteToStatusLabel(ONLINE_STATUS);
             }
@@ -122,13 +122,13 @@ namespace Client
         {
             switch (json.Type)
             {
-                case JSONType.text:
+                case JSONType.Text:
                     WriteToTextBox(json.Data);
                     break;
-                case JSONType.compile:
+                case JSONType.Compile:
                     MessageBox.Show(json.Data);
                     break;
-                case JSONType.status:
+                case JSONType.Status:
                     if (json.Data == OFFILE_STATUS) CloseConnection();
                     break;
             }
@@ -150,7 +150,7 @@ namespace Client
 
         public void CloseApplication()
         {
-            Action(OFFILE_STATUS, JSONType.status);
+            Action(OFFILE_STATUS, JSONType.Status);
         }
 
         private void CloseConnection()
@@ -158,7 +158,7 @@ namespace Client
             try
             {
                 Socket.Close();
-                stream.Close();
+                Stream.Close();
                 Reader.Close();
                 Writer.Close();
                 WriteToStatusLabel(OFFILE_STATUS);
