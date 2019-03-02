@@ -89,7 +89,7 @@ namespace Server
 
         public override bool Equals(object obj)
         {
-            return ((User)obj).UserID == UserID;
+            return ((User)obj).user == user;
         }
     }
 }

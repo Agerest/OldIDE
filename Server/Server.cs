@@ -46,9 +46,12 @@ namespace Server
                 {
                     userSocket = server.Accept();
                     User user = new User(userSocket, users.Count);
-                    Console.WriteLine("New user connected. ID = " + (users.Count - 1));
-                    users.Add(user);
-                    if (CurrentText != null) user.SendMessage(CurrentText); 
+                    if (!users.Contains(user))
+                    {
+                        Console.WriteLine("New user connected. ID = " + (users.Count - 1));
+                        users.Add(user);
+                        if (CurrentText != null) user.SendMessage(CurrentText);
+                    }
                 }
                 catch (Exception ex)
                 {

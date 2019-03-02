@@ -18,12 +18,7 @@ namespace Client
 
         private void ConnectButton_Click(object sender, EventArgs e)
         {
-            client = new Client(ipTextBox.Text, codeTextBox);
-
-            if (client.Connected())
-            {
-                statusLabel.Text = "Online";
-            }
+            client = new Client(ipTextBox.Text, codeTextBox, statusLabel);
         }
 
         private void compileButton_Click(object sender, EventArgs e)
@@ -33,24 +28,26 @@ namespace Client
 
         private void KeyUpCodeTextBox(object sender, KeyEventArgs e)
         {
-            if (client != null && client.Connected())
-            {
-                client.SendTextCodeTextBox(codeTextBox.Text);
-            }
+            if (client != null && client.Connected()) client.SendCodeText(codeTextBox.Text);
         }
 
 
         class Client
         {
+            private const string ONLINE_STATUS = "Online";
+            private const string OFFILE_STATUS = "Offline";
+
             private Socket client;
             private NetworkStream stream;
             private BinaryReader reader;
             private BinaryWriter writer;
             private bool connected = false;
             private TextBox textBox;
+            private Label status;
 
-            public Client(string ip, TextBox textBox)
+            public Client(string ip, TextBox textBox, Label label)
             {
+                status = label;
                 this.textBox = textBox;
                 int port = 228;
                 Connect(ip, port);
@@ -66,8 +63,9 @@ namespace Client
                     reader = new BinaryReader(stream);
                     writer = new BinaryWriter(stream);
                     connected = true;
+                    WriteToStatusLabel(ONLINE_STATUS);
                 }
-                catch (Exception ex)
+                catch
                 {
                     return;
                 }
@@ -78,7 +76,7 @@ namespace Client
 
             private void Working()
             {
-                while (connected)
+                while (true)
                 {
                     {
                         try
@@ -90,6 +88,7 @@ namespace Client
                         } 
                         catch
                         {
+                            CloseConnection();
                             return;
                         }
                     }
@@ -107,6 +106,14 @@ namespace Client
                         MessageBox.Show(json.Data);
                         break;
                 }
+            }
+
+            private void WriteToStatusLabel(string text)
+            {
+                status.Invoke((MethodInvoker)delegate
+                {
+                    status.Text = text;
+                });
             }
 
             private void WriteToTextBox(string text)
@@ -128,7 +135,7 @@ namespace Client
                 {
                     writer.Write(message);
                 }
-                catch (Exception ex)
+                catch
                 {
                     CloseConnection();
                 }
@@ -141,9 +148,8 @@ namespace Client
                 {
                     message = reader.ReadString();
                 }
-                catch (Exception ex)
+                catch
                 {
-                    MessageBox.Show(ex.Message);
                     CloseConnection();
                 }
                 return message;
@@ -156,7 +162,7 @@ namespace Client
                 SendMessage(j);
             }
 
-            public void SendTextCodeTextBox(string text)
+            public void SendCodeText(string text)
             {
                 JSON json = new JSON(JSONType.text, text);
                 string j = JsonConvert.SerializeObject(json);
@@ -170,6 +176,7 @@ namespace Client
                 stream.Close();
                 reader.Close();
                 writer.Close();
+                WriteToStatusLabel(OFFILE_STATUS);
             }
         }
     }
