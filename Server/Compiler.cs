@@ -15,7 +15,8 @@ namespace Server
         private static string javacPath;
         private static string javaPath;
         private static string workFolderPath;
-        private static void readXML()
+
+        private static void ReadXML()
         {
             XmlDocument xDoc = new XmlDocument();
             xDoc.Load(XMLPATH);
@@ -38,18 +39,18 @@ namespace Server
         }
         public static string Compile(string program, string nameClass)
         {
-            readXML();
+            ReadXML();
             StreamWriter sw = new StreamWriter(nameClass + ".java", false, System.Text.Encoding.Default);
             sw.WriteLine(program);
             sw.Close();
-            runCmd(toQuotes(javacPath) + " " + toQuotes(workFolderPath + @"\" + nameClass + ".java"));
-            return runCmd(toQuotes(javaPath) + " -classpath " + workFolderPath + " " + nameClass);
+            RunCmd(toQuotes(javacPath) + " " + toQuotes(workFolderPath + @"\" + nameClass + ".java"));
+            return RunCmd(toQuotes(javaPath) + " -classpath " + workFolderPath + " " + nameClass);
         }
         private static string toQuotes(string str)
         {
             return "\"" + str + "\"";
         }
-        private static string runCmd(string commands)
+        private static string RunCmd(string commands)
         {
             var process = new Process
             {

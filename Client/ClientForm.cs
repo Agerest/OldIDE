@@ -10,7 +10,7 @@ namespace Client
 {
     public partial class ClientForm : Form
     {
-        private Client client = new Client();
+        private Client Client = new Client();
         public ClientForm()
         {
             InitializeComponent();
@@ -18,26 +18,26 @@ namespace Client
 
         private void ConnectButton_Click(object sender, EventArgs e)
         {
-            if (!client.Connected)
+            if (!Client.Connected)
             {
-                client.SetProperty(ipTextBox.Text, codeTextBox, statusLabel);
-                client.Connect();
+                Client.SetProperty(ipTextBox.Text, codeTextBox, statusLabel);
+                Client.Connect();
             }
         }
 
         private void compileButton_Click(object sender, EventArgs e)
         {
-            client.action(codeTextBox.Text, textBox1.Text, JSONType.compile);
+            Client.Action(codeTextBox.Text, textBox1.Text, JSONType.compile);
         }
 
         private void KeyUpCodeTextBox(object sender, KeyEventArgs e)
         {
-            if (client != null && client.Connected) client.action(codeTextBox.Text,JSONType.text);
+            if (Client != null && Client.Connected) Client.Action(codeTextBox.Text,JSONType.text);
         }
 
         private void Exit(object sender, FormClosingEventArgs e)
         {
-            client.CloseApplication();
+            Client.CloseApplication();
         }
 
     }

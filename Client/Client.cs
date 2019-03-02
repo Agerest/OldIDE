@@ -18,31 +18,31 @@ namespace Client
         private const string OFFILE_STATUS = "Offline";
         private const int PORT = 228;
 
-        private string ip;
-        private Socket socket;
+        private string IP;
+        private Socket Socket;
         private NetworkStream stream;
-        private BinaryReader reader;
-        private BinaryWriter writer;
+        private BinaryReader Reader;
+        private BinaryWriter Writer;
         public bool Connected = false;
-        private TextBox textBox { get; set; }
+        private TextBox TextBox { get; set; }
         private Label Status { get; set; }
 
         public void SetProperty(string ip, TextBox textBox, Label label)
         {
-            this.ip = ip;
+            IP = ip;
             Status = label;
-            this.textBox = textBox;
+            TextBox = textBox;
         }
         
         public void Connect()
         {
             try
             {
-                socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                socket.Connect(new IPEndPoint(IPAddress.Parse(ip), PORT));
-                stream = new NetworkStream(socket);
-                reader = new BinaryReader(stream);
-                writer = new BinaryWriter(stream);
+                Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                Socket.Connect(new IPEndPoint(IPAddress.Parse(IP), PORT));
+                stream = new NetworkStream(Socket);
+                Reader = new BinaryReader(stream);
+                Writer = new BinaryWriter(stream);
                 Connected = true;
                 WriteToStatusLabel(ONLINE_STATUS);
             }
@@ -85,9 +85,9 @@ namespace Client
 
         private void WriteToTextBox(string text)
         {
-            textBox.Invoke((MethodInvoker)delegate
+            TextBox.Invoke((MethodInvoker)delegate
             {
-                textBox.Text = text;
+                TextBox.Text = text;
             });
         }
 
@@ -95,8 +95,8 @@ namespace Client
         {
             try
             {
-                writer.Write(message);
-                writer.Flush();
+                Writer.Write(message);
+                Writer.Flush();
             }
             catch
             {
@@ -109,7 +109,7 @@ namespace Client
             string message = "";
             try
             {
-                message = reader.ReadString();
+                message = Reader.ReadString();
             }
             catch
             {
@@ -134,14 +134,14 @@ namespace Client
             }
         }
 
-        public void action(string text, JSONType type)
+        public void Action(string text, JSONType type)
         {
             JSON json = new JSON(type, text, null);
             string j = JsonConvert.SerializeObject(json);
             SendMessage(j);
         }
 
-        public void action(string text1, string text2, JSONType type)
+        public void Action(string text1, string text2, JSONType type)
         {
             JSON json = new JSON(type, text1, text2);
             string j = JsonConvert.SerializeObject(json);
@@ -150,17 +150,17 @@ namespace Client
 
         public void CloseApplication()
         {
-            action(OFFILE_STATUS, JSONType.status);
+            Action(OFFILE_STATUS, JSONType.status);
         }
 
         private void CloseConnection()
         {
             try
             {
-                socket.Close();
+                Socket.Close();
                 stream.Close();
-                reader.Close();
-                writer.Close();
+                Reader.Close();
+                Writer.Close();
                 WriteToStatusLabel(OFFILE_STATUS);
             }
             catch
