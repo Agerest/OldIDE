@@ -49,7 +49,14 @@ namespace Server
                     User user = new User(userSocket, Users.Count);
                     Console.WriteLine("New user connected. ID = " + Users.Count);
                     Users.Add(user);
-                    if (CurrentText != null) user.SendMessage(CurrentText);
+                    if (CurrentText == null)
+                    {
+                        user.SendMessage("");
+                    }
+                    else
+                    {
+                        user.SendMessage(CurrentText);
+                    }
                 }
                 catch (Exception ex)
                 {
