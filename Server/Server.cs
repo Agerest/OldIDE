@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -51,11 +52,15 @@ namespace Server
                     Users.Add(user);
                     if (CurrentText == null)
                     {
-                        user.SendMessage("");
+                        JSON json = new JSON(JSONType.text, "1");
+                        string message = JsonConvert.SerializeObject(json);
+                        user.SendMessage(message);
                     }
                     else
                     {
-                        user.SendMessage(CurrentText);
+                        JSON json = new JSON(JSONType.text, CurrentText);
+                        string message = JsonConvert.SerializeObject(json);
+                        user.SendMessage(message);
                     }
                 }
                 catch (Exception ex)

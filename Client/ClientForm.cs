@@ -78,7 +78,6 @@ namespace Client
                 }
                 catch
                 {
-                    return;
                 }
 
                 Thread thread = new Thread(Working);

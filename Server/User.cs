@@ -45,6 +45,7 @@ namespace Server
             try
             {
                 writer.Write(message);
+                writer.Flush();
                 Console.WriteLine("К {0}: {1}", UserID, message);
             }
             catch (Exception ex)
