@@ -136,9 +136,7 @@ namespace Client
 
         public void Action(string text, JSONType type)
         {
-            JSON json = new JSON(type, text, null);
-            string j = JsonConvert.SerializeObject(json);
-            SendMessage(j);
+            Action(text, null, type);
         }
 
         public void Action(string text1, string text2, JSONType type)
