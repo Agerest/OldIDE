@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Server
+﻿namespace Server
 {
     public enum JSONType
     {
@@ -13,17 +7,15 @@ namespace Server
         status
     }
 
-    class JSON
+    class Json
     {
         public JSONType Type { set;  get; }
         public string Data { set; get; }
-        public string Data2 { set; get; }
 
-        public JSON(JSONType type, string data, string data2)
+        public Json(JSONType type, string data
         {
             Type = type;
             Data = data;
-            Data2 = data2;
         }
     }
 }

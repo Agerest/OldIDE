@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Client.JSON;
+using System;
 using System.Windows.Forms;
 
 namespace Client
 {
     public partial class clientForm : Form
     {
-        private string projectName;
+        private const string ONLINE_STATUS = "Online";
+        private const string OFFILE_STATUS = "Offline";
 
         public clientForm()
         {
@@ -16,14 +18,14 @@ namespace Client
         {
             if (!Client.Connected)
             {
-                Client.SetProperty("127.0.0.1", codeTextBox, statusLabel);
+                Client.SetProperty("127.0.0.1", codeTextBox, resultTextBox, statusLabel);
                 Client.Connect();
             }
         }
 
         private void compileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Client.Action(codeTextBox.Text, projectName, JSONType.Compile);
+            Client.Action(JsonType.Compile, codeTextBox.Text);
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -35,13 +37,13 @@ namespace Client
         {
             if (Client.Connected)
             {
-                Client.Action(codeTextBox.Text, JSONType.Text);
+                Client.Action(JsonType.Text, codeTextBox.Text);
             }
         }
 
         private void exit(object sender, FormClosingEventArgs e)
         {
-            Client.CloseApplication();
+            Client.Action(JsonType.Status, OFFILE_STATUS);
         }
         
     }

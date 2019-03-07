@@ -74,7 +74,7 @@ namespace Server
 
         private void JsonParse(string jsonSerialize)
         {
-            JSON json = JsonConvert.DeserializeObject<JSON>(jsonSerialize);
+            Json json = JsonConvert.DeserializeObject<Json>(jsonSerialize);
 
             try
             {
@@ -86,7 +86,7 @@ namespace Server
                         break;
                     case JSONType.compile:
                         string message = Compiler.Compile(json.Data, json.Data2);
-                        json = new JSON(JSONType.compile, message, null);
+                        json = new Json(JSONType.compile, message);
                         string j = JsonConvert.SerializeObject(json);
                         SendMessage(j);
                         break;

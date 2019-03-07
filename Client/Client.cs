@@ -1,14 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Client.JSON;
 
 namespace Client
 {
@@ -19,36 +16,33 @@ namespace Client
         private const int PORT = 228;
 
         private static string IP;
-        private static Socket Socket;
-        private static NetworkStream Stream;
-        private static BinaryReader Reader;
-        private static BinaryWriter Writer;
-        public static bool Connected = false;
-        private static TextBox TextBox { get; set; }
-        private static Label Status { get; set; }
+        private static Socket socket;
+        private static NetworkStream stream;
+        private static BinaryReader reader;
+        private static BinaryWriter writer;
 
-        public static void SetProperty(string ip, TextBox textBox, Label label)
+        public static bool Connected { get; set; } = false;
+
+        public static void SetProperty(string ip, TextBox code, TextBox result, Label status)
         {
             IP = ip;
-            Status = label;
-            TextBox = textBox;
+            JsonParser.SetProperties(code, result, status);
         }
         
         public static void Connect()
         {
             try
             {
-                Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                Socket.Connect(new IPEndPoint(IPAddress.Parse(IP), PORT));
-                Stream = new NetworkStream(Socket);
-                Reader = new BinaryReader(Stream);
-                Writer = new BinaryWriter(Stream);
+                socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                socket.Connect(new IPEndPoint(IPAddress.Parse(IP), PORT));
+                stream = new NetworkStream(socket);
+                reader = new BinaryReader(stream);
+                writer = new BinaryWriter(stream);
                 Connected = true;
-                WriteToStatusLabel(ONLINE_STATUS);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Connect: " + ex.Message);
                 return;
             }
 
@@ -58,48 +52,33 @@ namespace Client
 
         private static void Working()
         {
-            while (true)
+            while (Connected)
             {
+                try
                 {
-                    try
-                    {
-                        string message = ReceiveMessage();
-                        JSON json = JsonConvert.DeserializeObject<JSON>(message);
-                        JsonParse(json);
-                    }
-                    catch
-                    {
-                        return;
-                    }
+                    string message = ReceiveMessage();
+                    Json json = JsonConvert.DeserializeObject<Json>(message);
+                    JsonParser.Parse(json);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Working: " + ex.Message);
+                    return;
                 }
             }
         }
 
-        private static void WriteToStatusLabel(string text)
-        {
-            Status.Invoke((MethodInvoker)delegate
-            {
-                Status.Text = text;
-            });
-        }
-
-        private static void WriteToTextBox(string text)
-        {
-            TextBox.Invoke((MethodInvoker)delegate
-            {
-                TextBox.Text = text;
-            });
-        }
 
         public static void SendMessage(string message)
         {
             try
             {
-                Writer.Write(message);
-                Writer.Flush();
+                writer.Write(message);
+                writer.Flush();
             }
-            catch
+            catch (Exception ex)
             {
+                MessageBox.Show("SendMessage: " + ex.Message);
                 CloseConnection();
             }
         }
@@ -109,63 +88,31 @@ namespace Client
             string message = "";
             try
             {
-                message = Reader.ReadString();
+                message = reader.ReadString();
             }
-            catch
+            catch (Exception ex)
             {
+                MessageBox.Show("ReceiveMessage: " + ex.Message);
                 CloseConnection();
             }
             return message;
         }
 
-        private static void JsonParse(JSON json)
+        public static void Action(JsonType type, string text)
         {
-            switch (json.Type)
-            {
-                case JSONType.Text:
-                    WriteToTextBox(json.Data);
-                    break;
-                case JSONType.Compile:
-                    MessageBox.Show(json.Data);
-                    break;
-                case JSONType.Status:
-                    if (json.Data == OFFILE_STATUS)
-                    {
-                        CloseConnection();
-                    }
-                    break;
-                case JSONType.OpenProject:
-                    Explorer.FillTreeView(json.Data);
-                    break;
-            }
-        }
-
-        public static void Action(string text, JSONType type)
-        {
-            Action(text, null, type);
-        }
-
-        public static void Action(string text1, string text2, JSONType type)
-        {
-            JSON json = new JSON(type, text1, text2);
+            Json json = new Json(type, text);
             string j = JsonConvert.SerializeObject(json);
             SendMessage(j);
         }
 
-        public static void CloseApplication()
-        {
-            Action(OFFILE_STATUS, JSONType.Status);
-        }
-
-        private static void CloseConnection()
+        public static void CloseConnection()
         {
             try
             {
-                Socket.Close();
-                Stream.Close();
-                Reader.Close();
-                Writer.Close();
-                WriteToStatusLabel(OFFILE_STATUS);
+                socket.Close();
+                stream.Close();
+                reader.Close();
+                writer.Close();
             }
             catch
             {

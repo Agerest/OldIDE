@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System.IO;
+﻿using Client.JSON;
+using Newtonsoft.Json;
 using System.Windows.Forms;
 
 namespace Client
@@ -11,7 +11,7 @@ namespace Client
 
         public static void OpenProject(string projectName, TreeView treeView)
         {
-            Client.Action(projectName, JSONType.OpenProject);
+            Client.Action(JsonType.OpenProject, projectName);
             tView = treeView;
         }
 

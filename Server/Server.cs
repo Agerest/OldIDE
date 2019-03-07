@@ -47,7 +47,7 @@ namespace Server
                     Users.Add(user);
                     if (CurrentText != null)
                     {
-                        JSON json = new JSON(JSONType.text, CurrentText, null);
+                        Json json = new Json(JSONType.text, CurrentText, null);
                         string message = JsonConvert.SerializeObject(json);
                         user.SendMessage(message);
                     }

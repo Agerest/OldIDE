@@ -32,7 +32,7 @@ namespace Client
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(clientForm));
             this.codeTextBox = new System.Windows.Forms.TextBox();
-            this.outputTextBox = new System.Windows.Forms.TextBox();
+            this.resultTextBox = new System.Windows.Forms.TextBox();
             this.explorerTreeView = new System.Windows.Forms.TreeView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
@@ -56,13 +56,13 @@ namespace Client
             this.codeTextBox.TabIndex = 0;
             this.codeTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.keyUpCodeTextBox);
             // 
-            // outputTextBox
+            // resultTextBox
             // 
-            this.outputTextBox.Location = new System.Drawing.Point(12, 436);
-            this.outputTextBox.Multiline = true;
-            this.outputTextBox.Name = "outputTextBox";
-            this.outputTextBox.Size = new System.Drawing.Size(781, 72);
-            this.outputTextBox.TabIndex = 6;
+            this.resultTextBox.Location = new System.Drawing.Point(12, 436);
+            this.resultTextBox.Multiline = true;
+            this.resultTextBox.Name = "resultTextBox";
+            this.resultTextBox.Size = new System.Drawing.Size(781, 72);
+            this.resultTextBox.TabIndex = 6;
             // 
             // explorerTreeView
             // 
@@ -157,7 +157,7 @@ namespace Client
             this.Controls.Add(this.projectNameTextBox);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.explorerTreeView);
-            this.Controls.Add(this.outputTextBox);
+            this.Controls.Add(this.resultTextBox);
             this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.codeTextBox);
             this.Name = "clientForm";
@@ -173,7 +173,7 @@ namespace Client
         #endregion
 
         private System.Windows.Forms.TextBox codeTextBox;
-        private System.Windows.Forms.TextBox outputTextBox;
+        private System.Windows.Forms.TextBox resultTextBox;
         private System.Windows.Forms.TreeView explorerTreeView;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
