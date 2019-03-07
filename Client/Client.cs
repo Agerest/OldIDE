@@ -12,29 +12,29 @@ using System.Windows.Forms;
 
 namespace Client
 {
-    class Client
+    static class Client
     {
         private const string ONLINE_STATUS = "Online";
         private const string OFFILE_STATUS = "Offline";
         private const int PORT = 228;
 
-        private string IP;
-        private Socket Socket;
-        private NetworkStream Stream;
-        private BinaryReader Reader;
-        private BinaryWriter Writer;
-        public bool Connected = false;
-        private TextBox TextBox { get; set; }
-        private Label Status { get; set; }
+        private static string IP;
+        private static Socket Socket;
+        private static NetworkStream Stream;
+        private static BinaryReader Reader;
+        private static BinaryWriter Writer;
+        public static bool Connected = false;
+        private static TextBox TextBox { get; set; }
+        private static Label Status { get; set; }
 
-        public void SetProperty(string ip, TextBox textBox, Label label)
+        public static void SetProperty(string ip, TextBox textBox, Label label)
         {
             IP = ip;
             Status = label;
             TextBox = textBox;
         }
         
-        public void Connect()
+        public static void Connect()
         {
             try
             {
@@ -56,7 +56,7 @@ namespace Client
             thread.Start();
         }
 
-        private void Working()
+        private static void Working()
         {
             while (true)
             {
@@ -75,7 +75,7 @@ namespace Client
             }
         }
 
-        private void WriteToStatusLabel(string text)
+        private static void WriteToStatusLabel(string text)
         {
             Status.Invoke((MethodInvoker)delegate
             {
@@ -83,7 +83,7 @@ namespace Client
             });
         }
 
-        private void WriteToTextBox(string text)
+        private static void WriteToTextBox(string text)
         {
             TextBox.Invoke((MethodInvoker)delegate
             {
@@ -91,7 +91,7 @@ namespace Client
             });
         }
 
-        public void SendMessage(string message)
+        public static void SendMessage(string message)
         {
             try
             {
@@ -104,7 +104,7 @@ namespace Client
             }
         }
 
-        public string ReceiveMessage()
+        public static string ReceiveMessage()
         {
             string message = "";
             try
@@ -118,7 +118,7 @@ namespace Client
             return message;
         }
 
-        private void JsonParse(JSON json)
+        private static void JsonParse(JSON json)
         {
             switch (json.Type)
             {
@@ -134,24 +134,24 @@ namespace Client
             }
         }
 
-        public void Action(string text, JSONType type)
+        public static void Action(string text, JSONType type)
         {
             Action(text, null, type);
         }
 
-        public void Action(string text1, string text2, JSONType type)
+        public static void Action(string text1, string text2, JSONType type)
         {
             JSON json = new JSON(type, text1, text2);
             string j = JsonConvert.SerializeObject(json);
             SendMessage(j);
         }
 
-        public void CloseApplication()
+        public static void CloseApplication()
         {
             Action(OFFILE_STATUS, JSONType.Status);
         }
 
-        private void CloseConnection()
+        private static void CloseConnection()
         {
             try
             {

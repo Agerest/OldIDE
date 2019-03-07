@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Client
+﻿namespace Client
 {
     public enum JSONType
     {
         Text,
         Compile,
-        Status
+        Status,
+        OpenProject
     }
 
     class JSON

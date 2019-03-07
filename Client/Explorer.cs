@@ -8,14 +8,15 @@ namespace Client
         private static TreeNode rNode;
         private static TreeView tView;
 
-        public static void OpenProject(TreeNode rootNode, TreeView treeView)
+        public static void OpenProject(string projectPath, TreeView treeView)
         {
+            Client.
             tView = treeView;
             rNode = rootNode;
             treeView.Nodes.Add(rNode);
         }
 
-        private static void CreateFileNodes()
+        /*private static void CreateFileNodes() Нужно перенести на сервер
         {
             DirectoryInfo rootDirectory = new DirectoryInfo(path);
             TreeNode rootNode = new TreeNode(name);
@@ -40,7 +41,7 @@ namespace Client
             foreach (DirectoryInfo directory in directories)
             {
                 FillNodes(directory, node);
-            }
+            }*/
 
 
         }

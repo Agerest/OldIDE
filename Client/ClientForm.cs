@@ -5,7 +5,6 @@ namespace Client
 {
     public partial class clientForm : Form
     {
-        private Client client = new Client();
         private string projectName;
 
         public clientForm()
@@ -15,16 +14,16 @@ namespace Client
 
         private void connectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!client.Connected)
+            if (!Client.Connected)
             {
-                client.SetProperty("127.0.0.1", CodeTextBox, StatusLabel);
-                client.Connect();
+                Client.SetProperty("127.0.0.1", CodeTextBox, StatusLabel);
+                Client.Connect();
             }
         }
 
         private void compileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            client.Action(CodeTextBox.Text, projectName, JSONType.Compile);
+            Client.Action(CodeTextBox.Text, projectName, JSONType.Compile);
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -34,12 +33,15 @@ namespace Client
 
         private void keyUpCodeTextBox(object sender, KeyEventArgs e)
         {
-            if (client != null && client.Connected) client.Action(CodeTextBox.Text,JSONType.Text);
+            if (Client.Connected)
+            {
+                Client.Action(CodeTextBox.Text, JSONType.Text);
+            }
         }
 
         private void exit(object sender, FormClosingEventArgs e)
         {
-            client.CloseApplication();
+            Client.CloseApplication();
         }
         
     }
