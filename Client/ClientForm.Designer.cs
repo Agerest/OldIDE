@@ -36,15 +36,16 @@ namespace Client
             this.CompileButton = new System.Windows.Forms.Button();
             this.StatusLabel = new System.Windows.Forms.Label();
             this.ProjectNameTextBox = new System.Windows.Forms.TextBox();
+            this.OutputTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // CodeTextBox
             // 
-            this.CodeTextBox.Location = new System.Drawing.Point(2, 45);
+            this.CodeTextBox.Location = new System.Drawing.Point(12, 36);
             this.CodeTextBox.Multiline = true;
             this.CodeTextBox.Name = "CodeTextBox";
             this.CodeTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.CodeTextBox.Size = new System.Drawing.Size(786, 393);
+            this.CodeTextBox.Size = new System.Drawing.Size(781, 393);
             this.CodeTextBox.TabIndex = 0;
             this.CodeTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.KeyUpCodeTextBox);
             // 
@@ -93,11 +94,20 @@ namespace Client
             this.ProjectNameTextBox.TabIndex = 5;
             this.ProjectNameTextBox.Text = "HelloWorld";
             // 
+            // OutputTextBox
+            // 
+            this.OutputTextBox.Location = new System.Drawing.Point(12, 436);
+            this.OutputTextBox.Multiline = true;
+            this.OutputTextBox.Name = "OutputTextBox";
+            this.OutputTextBox.Size = new System.Drawing.Size(781, 69);
+            this.OutputTextBox.TabIndex = 6;
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(805, 517);
+            this.Controls.Add(this.OutputTextBox);
             this.Controls.Add(this.ProjectNameTextBox);
             this.Controls.Add(this.StatusLabel);
             this.Controls.Add(this.CompileButton);
@@ -120,6 +130,7 @@ namespace Client
         private System.Windows.Forms.Button CompileButton;
         private System.Windows.Forms.Label StatusLabel;
         private System.Windows.Forms.TextBox ProjectNameTextBox;
+        private System.Windows.Forms.TextBox OutputTextBox;
     }
 }
 
