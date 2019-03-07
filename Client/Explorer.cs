@@ -1,25 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Windows.Forms;
 
 namespace Client
 {
     static class Explorer
     {
-        private static string name;
-        private static string path;
-        private static TreeView treeView;
+        private static TreeNode rNode;
+        private static TreeView tView;
 
-        public static void SetProjectPath(string projectName, string projectPath, TreeView tree)
+        public static void OpenProject(TreeNode rootNode, TreeView treeView)
         {
-            name = projectName;
-            path = projectPath;
-            treeView = tree;
-            CreateFileNodes();
+            tView = treeView;
+            rNode = rootNode;
+            treeView.Nodes.Add(rNode);
         }
 
         private static void CreateFileNodes()

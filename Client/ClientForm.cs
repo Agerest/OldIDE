@@ -1,46 +1,46 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.IO;
-using System.Net;
-using System.Net.Sockets;
-using System.Threading;
+﻿using System;
 using System.Windows.Forms;
 
 namespace Client
 {
-    public partial class ClientForm : Form
+    public partial class clientForm : Form
     {
-        private Client Client = new Client();
+        private Client client = new Client();
+        private string projectName;
 
-        public ClientForm()
+        public clientForm()
         {
             InitializeComponent();
         }
 
-        private void ConnectButton_Click(object sender, EventArgs e)
+        private void connectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!Client.Connected)
+            if (!client.Connected)
             {
-                Client.SetProperty(IPTextBox.Text, CodeTextBox, StatusLabel);
-                Client.Connect();
+                client.SetProperty("127.0.0.1", CodeTextBox, StatusLabel);
+                client.Connect();
             }
         }
 
-        private void СompileButton_Click(object sender, EventArgs e)
+        private void compileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Client.Action(CodeTextBox.Text, ProjectNameTextBox.Text, JSONType.Compile);
+            client.Action(CodeTextBox.Text, projectName, JSONType.Compile);
         }
 
-        private void KeyUpCodeTextBox(object sender, KeyEventArgs e)
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Client != null && Client.Connected) Client.Action(CodeTextBox.Text,JSONType.Text);
+
         }
 
-        private void Exit(object sender, FormClosingEventArgs e)
+        private void keyUpCodeTextBox(object sender, KeyEventArgs e)
         {
-            Client.CloseApplication();
+            if (client != null && client.Connected) client.Action(CodeTextBox.Text,JSONType.Text);
         }
 
+        private void exit(object sender, FormClosingEventArgs e)
+        {
+            client.CloseApplication();
+        }
         
     }
 }
