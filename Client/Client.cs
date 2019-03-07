@@ -129,7 +129,13 @@ namespace Client
                     MessageBox.Show(json.Data);
                     break;
                 case JSONType.Status:
-                    if (json.Data == OFFILE_STATUS) CloseConnection();
+                    if (json.Data == OFFILE_STATUS)
+                    {
+                        CloseConnection();
+                    }
+                    break;
+                case JSONType.OpenProject:
+                    Explorer.FillTreeView(json.Data);
                     break;
             }
         }

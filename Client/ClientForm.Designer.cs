@@ -31,9 +31,9 @@ namespace Client
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(clientForm));
-            this.CodeTextBox = new System.Windows.Forms.TextBox();
-            this.OutputTextBox = new System.Windows.Forms.TextBox();
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.codeTextBox = new System.Windows.Forms.TextBox();
+            this.outputTextBox = new System.Windows.Forms.TextBox();
+            this.explorerTreeView = new System.Windows.Forms.TreeView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,34 +41,35 @@ namespace Client
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.compileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.StatusLabel = new System.Windows.Forms.Label();
+            this.statusLabel = new System.Windows.Forms.Label();
+            this.projectNameTextBox = new System.Windows.Forms.TextBox();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // CodeTextBox
+            // codeTextBox
             // 
-            this.CodeTextBox.Location = new System.Drawing.Point(12, 71);
-            this.CodeTextBox.Multiline = true;
-            this.CodeTextBox.Name = "CodeTextBox";
-            this.CodeTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.CodeTextBox.Size = new System.Drawing.Size(781, 358);
-            this.CodeTextBox.TabIndex = 0;
-            this.CodeTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.keyUpCodeTextBox);
+            this.codeTextBox.Location = new System.Drawing.Point(12, 71);
+            this.codeTextBox.Multiline = true;
+            this.codeTextBox.Name = "codeTextBox";
+            this.codeTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.codeTextBox.Size = new System.Drawing.Size(781, 358);
+            this.codeTextBox.TabIndex = 0;
+            this.codeTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.keyUpCodeTextBox);
             // 
-            // OutputTextBox
+            // outputTextBox
             // 
-            this.OutputTextBox.Location = new System.Drawing.Point(12, 436);
-            this.OutputTextBox.Multiline = true;
-            this.OutputTextBox.Name = "OutputTextBox";
-            this.OutputTextBox.Size = new System.Drawing.Size(781, 72);
-            this.OutputTextBox.TabIndex = 6;
+            this.outputTextBox.Location = new System.Drawing.Point(12, 436);
+            this.outputTextBox.Multiline = true;
+            this.outputTextBox.Name = "outputTextBox";
+            this.outputTextBox.Size = new System.Drawing.Size(781, 72);
+            this.outputTextBox.TabIndex = 6;
             // 
-            // treeView1
+            // explorerTreeView
             // 
-            this.treeView1.Location = new System.Drawing.Point(800, 36);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(175, 472);
-            this.treeView1.TabIndex = 7;
+            this.explorerTreeView.Location = new System.Drawing.Point(800, 36);
+            this.explorerTreeView.Name = "explorerTreeView";
+            this.explorerTreeView.Size = new System.Drawing.Size(175, 472);
+            this.explorerTreeView.TabIndex = 7;
             // 
             // toolStrip1
             // 
@@ -97,21 +98,21 @@ namespace Client
             // connectToolStripMenuItem
             // 
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            this.connectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.connectToolStripMenuItem.Text = "Connect";
             this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // toolStripDropDownButton2
@@ -132,25 +133,33 @@ namespace Client
             this.compileToolStripMenuItem.Text = "Compile";
             this.compileToolStripMenuItem.Click += new System.EventHandler(this.compileToolStripMenuItem_Click);
             // 
-            // StatusLabel
+            // statusLabel
             // 
-            this.StatusLabel.AutoSize = true;
-            this.StatusLabel.Location = new System.Drawing.Point(12, 516);
-            this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(37, 13);
-            this.StatusLabel.TabIndex = 4;
-            this.StatusLabel.Text = "Offline";
+            this.statusLabel.AutoSize = true;
+            this.statusLabel.Location = new System.Drawing.Point(12, 516);
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(37, 13);
+            this.statusLabel.TabIndex = 4;
+            this.statusLabel.Text = "Offline";
+            // 
+            // projectNameTextBox
+            // 
+            this.projectNameTextBox.Location = new System.Drawing.Point(12, 36);
+            this.projectNameTextBox.Name = "projectNameTextBox";
+            this.projectNameTextBox.Size = new System.Drawing.Size(100, 20);
+            this.projectNameTextBox.TabIndex = 10;
             // 
             // clientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(987, 538);
+            this.Controls.Add(this.projectNameTextBox);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.treeView1);
-            this.Controls.Add(this.OutputTextBox);
-            this.Controls.Add(this.StatusLabel);
-            this.Controls.Add(this.CodeTextBox);
+            this.Controls.Add(this.explorerTreeView);
+            this.Controls.Add(this.outputTextBox);
+            this.Controls.Add(this.statusLabel);
+            this.Controls.Add(this.codeTextBox);
             this.Name = "clientForm";
             this.Text = "HelloWorld";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.exit);
@@ -163,9 +172,9 @@ namespace Client
 
         #endregion
 
-        private System.Windows.Forms.TextBox CodeTextBox;
-        private System.Windows.Forms.TextBox OutputTextBox;
-        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.TextBox codeTextBox;
+        private System.Windows.Forms.TextBox outputTextBox;
+        private System.Windows.Forms.TreeView explorerTreeView;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem connectToolStripMenuItem;
@@ -173,7 +182,8 @@ namespace Client
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
         private System.Windows.Forms.ToolStripMenuItem compileToolStripMenuItem;
-        private System.Windows.Forms.Label StatusLabel;
+        private System.Windows.Forms.Label statusLabel;
+        private System.Windows.Forms.TextBox projectNameTextBox;
     }
 }
 

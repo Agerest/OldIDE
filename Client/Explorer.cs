@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Newtonsoft.Json;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Client
@@ -8,12 +9,16 @@ namespace Client
         private static TreeNode rNode;
         private static TreeView tView;
 
-        public static void OpenProject(string projectPath, TreeView treeView)
+        public static void OpenProject(string projectName, TreeView treeView)
         {
-            Client.
+            Client.Action(projectName, JSONType.OpenProject);
             tView = treeView;
-            rNode = rootNode;
-            treeView.Nodes.Add(rNode);
+        }
+
+        public static void FillTreeView(string treeNodeSerialize)
+        {
+            rNode = JsonConvert.DeserializeObject<TreeNode>(treeNodeSerialize);
+            tView.Nodes.Add(rNode);
         }
 
         /*private static void CreateFileNodes() Нужно перенести на сервер

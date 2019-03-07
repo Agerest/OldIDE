@@ -16,26 +16,26 @@ namespace Client
         {
             if (!Client.Connected)
             {
-                Client.SetProperty("127.0.0.1", CodeTextBox, StatusLabel);
+                Client.SetProperty("127.0.0.1", codeTextBox, statusLabel);
                 Client.Connect();
             }
         }
 
         private void compileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Client.Action(CodeTextBox.Text, projectName, JSONType.Compile);
+            Client.Action(codeTextBox.Text, projectName, JSONType.Compile);
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Explorer.OpenProject(projectNameTextBox.Text, explorerTreeView);
         }
 
         private void keyUpCodeTextBox(object sender, KeyEventArgs e)
         {
             if (Client.Connected)
             {
-                Client.Action(CodeTextBox.Text, JSONType.Text);
+                Client.Action(codeTextBox.Text, JSONType.Text);
             }
         }
 
