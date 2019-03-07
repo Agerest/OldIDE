@@ -37,6 +37,7 @@ namespace Client
             this.StatusLabel = new System.Windows.Forms.Label();
             this.ProjectNameTextBox = new System.Windows.Forms.TextBox();
             this.OutputTextBox = new System.Windows.Forms.TextBox();
+            this.FileListBox = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // CodeTextBox
@@ -99,14 +100,23 @@ namespace Client
             this.OutputTextBox.Location = new System.Drawing.Point(12, 436);
             this.OutputTextBox.Multiline = true;
             this.OutputTextBox.Name = "OutputTextBox";
-            this.OutputTextBox.Size = new System.Drawing.Size(781, 69);
+            this.OutputTextBox.Size = new System.Drawing.Size(781, 72);
             this.OutputTextBox.TabIndex = 6;
+            // 
+            // FileListBox
+            // 
+            this.FileListBox.FormattingEnabled = true;
+            this.FileListBox.Location = new System.Drawing.Point(800, 36);
+            this.FileListBox.Name = "FileListBox";
+            this.FileListBox.Size = new System.Drawing.Size(127, 472);
+            this.FileListBox.TabIndex = 7;
             // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(805, 517);
+            this.ClientSize = new System.Drawing.Size(939, 517);
+            this.Controls.Add(this.FileListBox);
             this.Controls.Add(this.OutputTextBox);
             this.Controls.Add(this.ProjectNameTextBox);
             this.Controls.Add(this.StatusLabel);
@@ -131,6 +141,7 @@ namespace Client
         private System.Windows.Forms.Label StatusLabel;
         private System.Windows.Forms.TextBox ProjectNameTextBox;
         private System.Windows.Forms.TextBox OutputTextBox;
+        private System.Windows.Forms.ListBox FileListBox;
     }
 }
 
