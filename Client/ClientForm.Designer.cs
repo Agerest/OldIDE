@@ -37,7 +37,7 @@ namespace Client
             this.StatusLabel = new System.Windows.Forms.Label();
             this.ProjectNameTextBox = new System.Windows.Forms.TextBox();
             this.OutputTextBox = new System.Windows.Forms.TextBox();
-            this.FileListBox = new System.Windows.Forms.ListBox();
+            this.treeView1 = new System.Windows.Forms.TreeView();
             this.SuspendLayout();
             // 
             // CodeTextBox
@@ -103,20 +103,19 @@ namespace Client
             this.OutputTextBox.Size = new System.Drawing.Size(781, 72);
             this.OutputTextBox.TabIndex = 6;
             // 
-            // FileListBox
+            // treeView1
             // 
-            this.FileListBox.FormattingEnabled = true;
-            this.FileListBox.Location = new System.Drawing.Point(800, 36);
-            this.FileListBox.Name = "FileListBox";
-            this.FileListBox.Size = new System.Drawing.Size(127, 472);
-            this.FileListBox.TabIndex = 7;
+            this.treeView1.Location = new System.Drawing.Point(800, 36);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(175, 472);
+            this.treeView1.TabIndex = 7;
             // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(939, 517);
-            this.Controls.Add(this.FileListBox);
+            this.ClientSize = new System.Drawing.Size(987, 517);
+            this.Controls.Add(this.treeView1);
             this.Controls.Add(this.OutputTextBox);
             this.Controls.Add(this.ProjectNameTextBox);
             this.Controls.Add(this.StatusLabel);
@@ -141,7 +140,7 @@ namespace Client
         private System.Windows.Forms.Label StatusLabel;
         private System.Windows.Forms.TextBox ProjectNameTextBox;
         private System.Windows.Forms.TextBox OutputTextBox;
-        private System.Windows.Forms.ListBox FileListBox;
+        private System.Windows.Forms.TreeView treeView1;
     }
 }
 
