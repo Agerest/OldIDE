@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Server.JSON;
 using System;
 using System.IO;
 using System.Net.Sockets;
@@ -8,8 +9,6 @@ namespace Server
 {
     class User
     {
-        private const string ONLINE_STATUS = "Online";
-        private const string OFFILE_STATUS = "Offline";
 
         public Socket Socket { get; }
         private NetworkStream Stream;
@@ -36,11 +35,11 @@ namespace Server
             while (Connected)
             {
                 string message = ReceiveMessage();
-                JsonParse(message);
+                JsonParser.JsonParse(message, this);
             }
         }
 
-        public void SendMessage(string message)
+        public static void SendMessage(string message)
         {
             try
             {
@@ -72,41 +71,14 @@ namespace Server
             return message;
         }
 
-        private void JsonParse(string jsonSerialize)
-        {
-            Json json = JsonConvert.DeserializeObject<Json>(jsonSerialize);
-
-            try
-            {
-                switch (json.Type)
-                {
-                    case JSONType.text:
-                        Server.CurrentText = json.Data;
-                        Server.SendMessageAllUser(jsonSerialize, this);
-                        break;
-                    case JSONType.compile:
-                        string message = Compiler.Compile(json.Data, json.Data2);
-                        json = new Json(JSONType.compile, message);
-                        string j = JsonConvert.SerializeObject(json);
-                        SendMessage(j);
-                        break;
-                    case JSONType.status:
-                        if (json.Data == OFFILE_STATUS) CloseConnection();
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
+        
 
         public override bool Equals(object obj)
         {
             return ((User)obj).Socket == Socket;
         }
 
-        private void CloseConnection()
+        public static void CloseConnection()
         {
             Server.Users.Remove(this);
             Connected = false;

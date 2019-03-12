@@ -21,7 +21,7 @@ namespace Client
             tView.Nodes.Add(rNode);
         }
 
-        /*private static void CreateFileNodes() Нужно перенести на сервер
+        private static void CreateFileNodes()// Нужно перенести на сервер
         {
             DirectoryInfo rootDirectory = new DirectoryInfo(path);
             TreeNode rootNode = new TreeNode(name);
@@ -46,11 +46,10 @@ namespace Client
             foreach (DirectoryInfo directory in directories)
             {
                 FillNodes(directory, node);
-            }*/
+            }
 
 
         }
-
 
     }
 }

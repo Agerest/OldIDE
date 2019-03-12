@@ -12,7 +12,7 @@
         public JSONType Type { set;  get; }
         public string Data { set; get; }
 
-        public Json(JSONType type, string data
+        public Json(JSONType type, string data)
         {
             Type = type;
             Data = data;
