@@ -10,12 +10,12 @@ namespace Server
     class User
     {
 
-        public Socket Socket { get; }
+        public Socket Socket { get; set; }
         private NetworkStream Stream;
         private BinaryReader Reader;
         private BinaryWriter Writer;
         private bool Connected = false;
-        public int UserID { get; }
+        public int UserID { get; set; }
         private Thread Thread;
 
         public User(Socket user, int userID)
@@ -39,7 +39,7 @@ namespace Server
             }
         }
 
-        public static void SendMessage(string message)
+        public void SendMessage(string message)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace Server
             return ((User)obj).Socket == Socket;
         }
 
-        public static void CloseConnection()
+        public void CloseConnection()
         {
             Server.Users.Remove(this);
             Connected = false;

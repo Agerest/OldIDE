@@ -10,7 +10,7 @@ using System.Xml;
 
 namespace Server
 {
-    class Server
+    static class Server
     {
         private static int PORT = 228;
 

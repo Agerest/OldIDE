@@ -24,13 +24,14 @@ namespace Server.JSON
                         Server.SendMessageAllUser(jsonSerialize, user);
                         break;
                     case JSONType.compile:
-                        string message = Compiler.Compile(json.Data);
+                        Dictionary<string, string> dictionary = JsonConvert.DeserializeObject <Dictionary<string, string>>(json.Data);
+                        string message = Compiler.Compile(dictionary["program"],dictionary["name"]);
                         json = new Json(JSONType.compile, message);
                         string j = JsonConvert.SerializeObject(json);
-                        User.SendMessage(j);
+                        user.SendMessage(j);
                         break;
                     case JSONType.status:
-                        if (json.Data == OFFILE_STATUS) User.CloseConnection();
+                        if (json.Data == OFFILE_STATUS) user.CloseConnection();
                         break;
                 }
             }
