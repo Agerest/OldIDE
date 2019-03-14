@@ -69,7 +69,7 @@ namespace Client
         }
 
 
-        public static void SendMessage(string message)
+        private static void SendMessage(string message)
         {
             try
             {
@@ -83,7 +83,7 @@ namespace Client
             }
         }
 
-        public static string ReceiveMessage()
+        private static string ReceiveMessage()
         {
             string message = "";
             try

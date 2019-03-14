@@ -57,8 +57,10 @@
       <DependentUpon>ClientForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Explorer.cs" />
+    <Compile Include="JSON\JsonClass.cs" />
     <Compile Include="JSON\Json.cs" />
     <Compile Include="JSON\JsonParser.cs" />
+    <Compile Include="JSON\JsonProject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\ClientForm.resx">

@@ -9,9 +9,9 @@ namespace Client
         private static TreeNode rNode;
         private static TreeView tView;
 
-        public static void OpenProject(string projectName, TreeView treeView)
+        public static void OpenProject(long projectID, TreeView treeView)
         {
-            Client.Action(JsonType.OpenProject, projectName);
+            Client.Action(JsonType.OpenProject, projectID.ToString());
             tView = treeView;
         }
 
@@ -21,7 +21,7 @@ namespace Client
             tView.Nodes.Add(rNode);
         }
 
-        private static void CreateFileNodes()// Нужно перенести на сервер
+       /* private static void CreateFileNodes()// Нужно перенести на сервер
         {
             DirectoryInfo rootDirectory = new DirectoryInfo(path);
             TreeNode rootNode = new TreeNode(name);
@@ -49,7 +49,7 @@ namespace Client
             }
 
 
-        }
+        }*/
 
     }
 }
