@@ -24,8 +24,8 @@ namespace Server.JSON
                         Server.SendMessageAllUser(jsonSerialize, user);
                         break;
                     case JSONType.compile:
-                        Dictionary<string, string> dictionary = JsonConvert.DeserializeObject <Dictionary<string, string>>(json.Data);
-                        string message = Compiler.Compile(dictionary["program"],dictionary["name"]);
+                        Dictionary<string, string> dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(json.Data);
+                        string message = Compiler.Compile(dictionary["program"], dictionary["name"]);
                         json = new Json(JSONType.compile, message);
                         string j = JsonConvert.SerializeObject(json);
                         user.SendMessage(j);

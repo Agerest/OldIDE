@@ -48,7 +48,11 @@
   <ItemGroup>
     <Compile Include="Compiler.cs" />
     <Compile Include="JSON\Json.cs" />
+    <Compile Include="JSON\JsonClass.cs" />
     <Compile Include="JSON\JsonParser.cs" />
+    <Compile Include="JSON\JsonProject.cs" />
+    <Compile Include="ProjectStruct\Class.cs" />
+    <Compile Include="ProjectStruct\Project.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
