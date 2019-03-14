@@ -1,4 +1,5 @@
-﻿using Server.JSON;
+﻿using Newtonsoft.Json;
+using Server.JSON;
 using Server.ProjectStruct;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,13 @@ namespace Server
 
         public string Serialize()
         {
-            JsonProject project
+            List<JsonClass> jsonClasses = new List<JsonClass>();
+            foreach (Class file in classes)
+            {
+                jsonClasses.Add(file.ToJsonClass());
+            }
+            JsonProject jsonProject = new JsonProject(this.ID, jsonClasses.ToArray());
+            return JsonConvert.SerializeObject(jsonProject);
         } 
 
     }

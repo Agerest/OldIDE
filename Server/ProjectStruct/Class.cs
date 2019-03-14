@@ -22,10 +22,9 @@ namespace Server.ProjectStruct
             Text = text;
         }
 
-        public string Serialize()
+        public JsonClass ToJsonClass()
         {
-            JsonClass file = new JsonClass(this.ID, this.Name, this.Text);
-            return JsonConvert.SerializeObject(file);
+            return new JsonClass(this.ID, this.Name, this.Text);
         }
 
     }
