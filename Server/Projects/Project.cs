@@ -1,47 +1,54 @@
 ﻿using Newtonsoft.Json;
 using Server.JSON;
 using System.Collections.Generic;
+using System.IO;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace Server
 {
     class Project
     {
-        private const string XML_FILE_NAME = @"\Struct.xml";
-
-        private List<ProjectStruct.File> files;
-        public string Name { get; set; }
         public int ID { get; set; }
-        private XmlDocument xml;
-
+        public string Name { get; set; }
+        private string projectPath;
+        private List<FileInfo> files;
+        public TreeNode TreeNode { get; set; }
+        
         public Project(int ID, string name, string projectPath)
         {
             this.ID = ID;
             Name = name;
-            files = new List<ProjectStruct.File>();
-            xml = new XmlDocument();
-            xml.Load(projectPath + XML_FILE_NAME);
+            files = new List<FileInfo>();
+            this.projectPath = projectPath;
+            TreeNode = new TreeNode(Name);
+            DirectoryInfo directory = new DirectoryInfo(projectPath);
+            ReadFiles(directory, TreeNode);
         }
 
-        private void ReadXml() //Реализовать
+        private void ReadFiles(DirectoryInfo directory, TreeNode parentNode) 
         {
+            TreeNode node = new TreeNode(directory.Name);
+            FileInfo[] files = directory.GetFiles();
 
+            foreach (FileInfo f in files)
+            {
+                this.files.Add(f);
+                node.Nodes.Add(f.Name);
+            }
+
+            parentNode.Nodes.Add(node);
+            DirectoryInfo[] directories = directory.GetDirectories();
+
+            foreach(DirectoryInfo di in directories)
+            {
+                ReadFiles(di, node);
+            }
         }
 
-        public void AddFiles(ProjectStruct.File _files)
+        /*public void AddFiles(FileInfo _files)
         {
             files.Add(_files);
-        }
-
-        public string Serialize()
-        {
-            List<JsonClass> jsonClasses = new List<JsonClass>();
-            foreach (ProjectStruct.File file in files)
-            {
-                jsonClasses.Add(file.ToJsonClass());
-            }
-            JsonProject jsonProject = new JsonProject(ID, jsonClasses.ToArray(), xml);
-            return JsonConvert.SerializeObject(jsonProject);
-        }
+        }*/
     }
 }

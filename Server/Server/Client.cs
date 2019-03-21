@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Server
 {
@@ -79,10 +80,11 @@ namespace Server
             {
                 if (project.ID == ID)
                 {
-                    string serializeProject = project.Serialize();
-                    Json json = new Json(JSONType.openProject, serializeProject);
+                    string treeNodeSerialaizable = JsonConvert.SerializeObject(project.TreeNode);
+                    Json json = new Json(JSONType.openProject, treeNodeSerialaizable);
                     string j = JsonConvert.SerializeObject(json);
                     SendMessage(j);
+                    return;
                 }
             }
         }

@@ -31,7 +31,7 @@ namespace Server.JSON
                         if (json.Data == OFFILE_STATUS) client.CloseConnection();
                         break;
                     case JSONType.openProject:
-                        client.OpenProject(long.Parse(json.Data));
+                        client.OpenProject(long.Parse(json.Data)); //Json.Data == project ID
                         break;
                 }
             }
