@@ -7,6 +7,8 @@ namespace Server
 {
     class Project
     {
+        private const string XML_FILE_NAME = "\Struct.xml";
+
         private List<ProjectStruct.File> files;
         public string Name { get; set; }
         public int ID { get; set; }
@@ -18,7 +20,7 @@ namespace Server
             Name = name;
             files = new List<ProjectStruct.File>();
             xml = new XmlDocument();
-            xml.Load(projectPath);
+            xml.Load(projectPath + XML_FILE_NAME);
         }
 
         private void ReadXml() //Реализовать
