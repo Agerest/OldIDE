@@ -18,13 +18,13 @@ namespace Server.Projects
         {
             xml.Load(XML_FILE_PATH);
             XmlElement nodeList = xml.DocumentElement;
-            foreach (var v in nodeList)
+            foreach (XmlNode xnode in nodeList)
             {
-
+                int ID = int.Parse(xnode["ID"].InnerText);
+                string name = xnode["Name"].InnerText;
+                string projectPath = xnode["ProjectPath"].InnerText;
+                projects.Add(new Project(ID, name, projectPath));
             }
-            int ID ;
-            string name;
-            string xmlFilePath;
         }
 
         public static Project GetProject(long ID)

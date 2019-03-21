@@ -12,13 +12,13 @@ namespace Server
         public int ID { get; set; }
         private XmlDocument xml;
 
-        public Project(int ID, string name, string xmlPath)
+        public Project(int ID, string name, string projectPath)
         {
             this.ID = ID;
             Name = name;
             files = new List<ProjectStruct.File>();
             xml = new XmlDocument();
-            xml.Load(xmlPath);
+            xml.Load(projectPath);
         }
 
         private void ReadXml() //Реализовать
