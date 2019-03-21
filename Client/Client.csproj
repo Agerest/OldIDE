@@ -57,6 +57,12 @@
       <DependentUpon>ClientForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Explorer.cs" />
+    <Compile Include="Forms\OpenProject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OpenProject.Designer.cs">
+      <DependentUpon>OpenProject.cs</DependentUpon>
+    </Compile>
     <Compile Include="JSON\JsonClass.cs" />
     <Compile Include="JSON\Json.cs" />
     <Compile Include="JSON\JsonParser.cs" />
@@ -65,6 +71,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\ClientForm.resx">
       <DependentUpon>ClientForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OpenProject.resx">
+      <DependentUpon>OpenProject.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

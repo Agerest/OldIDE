@@ -11,7 +11,7 @@ namespace Server.JSON
     {
         private const string ONLINE_STATUS = "Online";
         private const string OFFILE_STATUS = "Offline";
-        public static void JsonParse(string jsonSerialize, User user)
+        public static void JsonParse(string jsonSerialize, Client user)
         {
             Json json = JsonConvert.DeserializeObject<Json>(jsonSerialize);
 

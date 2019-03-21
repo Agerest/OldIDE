@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Server.ProjectStruct
 {
-    class Class
+    class File
     {
 
         private int ID { get; set; }
         private string Name { get; set; }
         private string Text { get; set; }
 
-        public Class(int ID, string name, string text)
+        public File(int ID, string name, string text)
         {
             this.ID = ID;
             Name = name;

@@ -15,7 +15,7 @@ namespace Server
         private static int PORT = 228;
 
         public static string CurrentText { get; set; }
-        public static List<User> Users { get; set; }
+        public static List<Client> Users { get; set; }
 
         static void Main(string[] args)
         {
@@ -34,7 +34,7 @@ namespace Server
                 return;
             }
 
-            Users = new List<User>();
+            Users = new List<Client>();
 
             while (true)
             {
@@ -42,7 +42,7 @@ namespace Server
                 try
                 {
                     userSocket = server.Accept();
-                    User user = new User(userSocket, Users.Count);
+                    Client user = new Client(userSocket, Users.Count);
                     Console.WriteLine("New user connected. ID = " + Users.Count);
                     Users.Add(user);
                     if (CurrentText != null)
@@ -59,11 +59,11 @@ namespace Server
             }
         }
 
-        public static void SendMessageAllUser(string message, User user)
+        public static void SendMessageAllUser(string message, Client user)
         {
             try
             {
-                foreach (User u in Users) if (!u.Equals(user)) u.SendMessage(message);
+                foreach (Client u in Users) if (!u.Equals(user)) u.SendMessage(message);
                 Console.WriteLine("Отправка сообщения всем пользователям успешна");
             }
             catch (Exception ex)

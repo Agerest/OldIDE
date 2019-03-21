@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace Server
 {
-    class User
+    class Client
     {
 
         public Socket Socket { get; set; }
@@ -18,7 +18,7 @@ namespace Server
         public int UserID { get; set; }
         private Thread Thread;
 
-        public User(Socket user, int userID)
+        public Client(Socket user, int userID)
         {
             Socket = user;
             UserID = userID;
@@ -72,10 +72,9 @@ namespace Server
         }
 
         
-
         public override bool Equals(object obj)
         {
-            return ((User)obj).Socket == Socket;
+            return ((Client)obj).Socket == Socket;
         }
 
         public void CloseConnection()
