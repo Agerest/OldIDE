@@ -7,7 +7,7 @@ namespace Server
 {
     class Project
     {
-        private const string XML_FILE_NAME = "\Struct.xml";
+        private const string XML_FILE_NAME = @"\Struct.xml";
 
         private List<ProjectStruct.File> files;
         public string Name { get; set; }
