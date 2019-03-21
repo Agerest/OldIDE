@@ -16,6 +16,8 @@ namespace Server.Projects
 
         public static void ReadXml()
         {
+            xml = new XmlDocument();
+            projects = new List<Project>();
             xml.Load(XML_FILE_PATH);
             XmlElement nodeList = xml.DocumentElement;
             foreach (XmlNode xnode in nodeList)

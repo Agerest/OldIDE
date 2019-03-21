@@ -22,6 +22,15 @@ namespace Server
             Socket server;
             try
             {
+                Projects.ProjectManager.ReadXml();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.WriteLine("Файл считан");
+            try
+            {
                 server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 server.Bind(new IPEndPoint(IPAddress.Any, PORT));
                 server.Listen(10);

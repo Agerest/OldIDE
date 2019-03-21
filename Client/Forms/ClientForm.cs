@@ -30,7 +30,7 @@ namespace Client
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Explorer.OpenProject(projectNameTextBox.Text, explorerTreeView);
+            Explorer.OpenProject(0, explorerTreeView);
         }
 
         private void keyUpCodeTextBox(object sender, KeyEventArgs e)

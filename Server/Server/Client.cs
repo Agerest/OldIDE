@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Server.JSON;
+using Server.Projects;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -76,17 +77,12 @@ namespace Server
 
         public void OpenProject(long ID)
         {
-            foreach (Project project in projects)
-            {
-                if (project.ID == ID)
-                {
-                    string treeNodeSerialaizable = JsonConvert.SerializeObject(project.TreeNode);
-                    Json json = new Json(JSONType.openProject, treeNodeSerialaizable);
-                    string j = JsonConvert.SerializeObject(json);
-                    SendMessage(j);
-                    return;
-                }
-            }
+            Project project = ProjectManager.GetProject(ID);
+            string treeNodeSerialaizable = JsonConvert.SerializeObject(project.TreeNode);
+            Json json = new Json(JSONType.openProject, treeNodeSerialaizable);
+            string j = JsonConvert.SerializeObject(json);
+            SendMessage(j);
+            return;
         }
         
         public override bool Equals(object obj)
