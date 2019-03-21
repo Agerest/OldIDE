@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Server.JSON;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Threading;
@@ -9,7 +10,6 @@ namespace Server
 {
     class Client
     {
-
         public Socket Socket { get; set; }
         private NetworkStream Stream;
         private BinaryReader Reader;
@@ -17,6 +17,7 @@ namespace Server
         private bool Connected = false;
         public int UserID { get; set; }
         private Thread Thread;
+        private List<Project> projects;
 
         public Client(Socket user, int userID)
         {
@@ -27,6 +28,7 @@ namespace Server
             Writer = new BinaryWriter(Stream);
             Thread = new Thread(Working);
             Thread.Start();
+            projects = new List<Project>();
             Connected = true;
         }
 
@@ -71,6 +73,19 @@ namespace Server
             return message;
         }
 
+        public void OpenProject(long ID)
+        {
+            foreach (Project project in projects)
+            {
+                if (project.ID == ID)
+                {
+                    string serializeProject = project.Serialize();
+                    Json json = new Json(JSONType.openProject, serializeProject);
+                    string j = JsonConvert.SerializeObject(json);
+                    SendMessage(j);
+                }
+            }
+        }
         
         public override bool Equals(object obj)
         {

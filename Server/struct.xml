@@ -1,0 +1,7 @@
+<project name ="Project">
+  <files>
+    <folder name ="Test">
+      <class name ="Main.java"/>
+    </folder>
+  </files>
+</project>

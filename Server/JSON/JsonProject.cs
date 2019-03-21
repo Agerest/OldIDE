@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Xml;
 
 namespace Server.JSON
 {
@@ -10,11 +6,13 @@ namespace Server.JSON
     {
         private long ID { get; set; }
         private JsonClass[] Classes { get; set; }
+        private XmlDocument Xml { get; set; }
 
-        public JsonProject(long id, JsonClass[] classes)
+        public JsonProject(long id, JsonClass[] classes, XmlDocument xml)
         {
             ID = id;
             Classes = classes;
+            Xml = xml;
         }
 
     }

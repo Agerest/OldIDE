@@ -4,7 +4,8 @@
     {
         text,
         compile,
-        status
+        status,
+        openProject
     }
 
     class Json

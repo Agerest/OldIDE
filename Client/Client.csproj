@@ -49,14 +49,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client.cs" />
+    <Compile Include="Client\Client.cs" />
     <Compile Include="Forms\ClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\ClientForm.Designer.cs">
       <DependentUpon>ClientForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Explorer.cs" />
+    <Compile Include="Project\Explorer.cs" />
     <Compile Include="Forms\OpenProject.cs">
       <SubType>Form</SubType>
     </Compile>

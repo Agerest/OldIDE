@@ -1,17 +1,14 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Server.JSON
 {
     static class JsonParser
     {
         private const string ONLINE_STATUS = "Online";
         private const string OFFILE_STATUS = "Offline";
-        public static void JsonParse(string jsonSerialize, Client user)
+
+        public static void JsonParse(string jsonSerialize, Client client)
         {
             Json json = JsonConvert.DeserializeObject<Json>(jsonSerialize);
 
@@ -21,17 +18,20 @@ namespace Server.JSON
                 {
                     case JSONType.text:
                         Server.CurrentText = json.Data;
-                        Server.SendMessageAllUser(jsonSerialize, user);
+                        Server.SendMessageAllUser(jsonSerialize, client);
                         break;
                     case JSONType.compile:
                         Dictionary<string, string> dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(json.Data);
                         string message = Compiler.Compile(dictionary["program"], dictionary["name"]);
                         json = new Json(JSONType.compile, message);
                         string j = JsonConvert.SerializeObject(json);
-                        user.SendMessage(j);
+                        client.SendMessage(j);
                         break;
                     case JSONType.status:
-                        if (json.Data == OFFILE_STATUS) user.CloseConnection();
+                        if (json.Data == OFFILE_STATUS) client.CloseConnection();
+                        break;
+                    case JSONType.openProject:
+                        client.OpenProject(long.Parse(json.Data));
                         break;
                 }
             }
