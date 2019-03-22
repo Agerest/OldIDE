@@ -1,0 +1,13 @@
+<Project name="Project">
+  <Folder name ="Project">
+    <Folder name="Test1">
+      <File name="Test2"/>
+    </Folder>
+    <Folder name="Test">
+      <File name="Main.java"/>
+      <Folder name="Test3">
+        <File name="Test4"/> 
+      </Folder>
+    </Folder>
+  </Folder>
+</Project>

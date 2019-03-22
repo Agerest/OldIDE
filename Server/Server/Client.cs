@@ -78,7 +78,7 @@ namespace Server
         public void OpenProject(long ID)
         {
             Project project = ProjectManager.GetProject(ID);
-            string treeNodeSerialaizable = JsonConvert.SerializeObject(project.TreeNode);
+            string treeNodeSerialaizable = JsonConvert.SerializeObject(project.GetXmlFile());
             Json json = new Json(JSONType.openProject, treeNodeSerialaizable);
             string j = JsonConvert.SerializeObject(json);
             SendMessage(j);

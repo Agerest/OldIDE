@@ -43,7 +43,7 @@ namespace Client.JSON
                     break;
 
                 case JsonType.OpenProject:
-                    Explorer.FillTreeView(json.Data);
+                    Explorer.LoadProject(json.Data); // Data == string XmlDocument
                     break;
             }
         }
